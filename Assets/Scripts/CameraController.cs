@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     Camera _camera;
+    [SerializeField] float minWidth = 10;
+    [SerializeField] float minHeight = 5;
+
     void Start()
     {
         _camera = GetComponent<Camera>();
@@ -13,11 +16,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (10 / _camera.aspect > 5) {
-            _camera.orthographicSize = 10 / _camera.aspect;
+        if (minWidth / _camera.aspect > minHeight) {
+            _camera.orthographicSize = minWidth / _camera.aspect;
         }
         else {
-            _camera.orthographicSize = 5;
+            _camera.orthographicSize = minHeight;
         }
     }
 }
