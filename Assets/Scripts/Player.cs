@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     Number leftHand;
     Number rightHand;
+
+    float width = 1f;
     [SerializeField] Collider2D collider2;
     [SerializeField] GameObject numberObject;
     [SerializeField] float speed;
@@ -18,22 +20,26 @@ public class Player : MonoBehaviour
 
     public void Summ()
     {
-
+        Number.Summ(leftHand, rightHand);
     }
     void Die()
     {
 
     }
 
-    public void Collect(ref Number hand)
+    public void Collect(ref Number hand, int offset)
     {
-        GameObject digitObj = GetOverlappingObject();
-        if (digitObj != null && digitObj.tag == "Digit" && digitObj.transform.parent.parent != this.transform)
+        GameObject digitObject = GetOverlappingObject();
+        if (digitObject != null && digitObject.tag == "Digit" && digitObject.transform.parent.parent != this.transform)
         {
-            hand = digitObj.GetComponentInParent<Number>();
-            digitObj.transform.parent.SetParent(this.transform);
-            Debug.Log(leftHand);
-            Debug.Log(rightHand);
+            hand = digitObject.GetComponentInParent<Number>();
+            digitObject.transform.parent.SetParent(this.transform);
+
+            digitObject.transform.parent.transform.localPosition = new Vector3(width + offset * hand.GetWidth(), 0, 0);
+
+
+            Debug.Log(transform.localPosition);
+            Debug.Log(digitObject.transform.parent.transform.localPosition);
         }
 
     }
@@ -56,11 +62,11 @@ public class Player : MonoBehaviour
         return null;
     }
 
-    void Interact(ref Number hand)
+    void Interact(ref Number hand, int offset)
     {
         if (hand == null)
         {
-            Collect(ref hand);
+            Collect(ref hand, offset);
         }
         else
             Drop(ref hand);
@@ -76,9 +82,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("LeftHand"))
-            Interact(ref leftHand);
+            Interact(ref leftHand, -1);
 
         if (Input.GetButtonDown("RightHand"))
-            Interact(ref rightHand);
+            Interact(ref rightHand, 1);
+
+        if (Input.GetKeyDown("space"))
+            Summ();
     }
 }
