@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
                 //start animation
                 // Invoke(nameof(StartSummarizing), summDelay);
                 _summarizingCoro = StartCoroutine(Summ());
+                // TODO: fix summ if numbers have been erased
             }
         }
     }

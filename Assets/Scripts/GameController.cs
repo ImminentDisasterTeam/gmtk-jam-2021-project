@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-
+        Debug.Log(">пук");
     }
 
     public void SetNumbersRange(int min, int max)
