@@ -5,7 +5,7 @@ using System;
 
 public class Number : MonoBehaviour
 {
-    List<GameObject> digits;
+    List<GameObject> digits = new List<GameObject>();
     [SerializeField] int value;
     
     [SerializeField] GameObject digitPrefab;
@@ -48,33 +48,26 @@ public class Number : MonoBehaviour
 
     private void InstantiateDigits() {
         int v = value;
-        float offset = -digitWidth;
+        // float offset = -digitWidth;
+
+        var digitCount = v.ToString().Length;
+        var offset = (digitCount - 1) / 2f * digitWidth;
+        
         while (v > 0) {
             GameObject go = Instantiate(digitPrefab, transform.position + new Vector3(offset, 0, 0), Quaternion.identity, transform);
             go.GetComponent<Digit>().SetValue(v%10);
             digits.Add(go);
-            go.GetComponent<Digit>().onTriggerEnter2D += obj => Destroy();
+            go.GetComponent<Digit>().onEnemyEnter += obj => Destroy();
             offset -= digitWidth;
             v/=10;
         }
     }
 
     public float GetWidth() {
-        return digitWidth*digits.Count;
+        return digitWidth * digits.Count;
     }
 
     public Vector2 GetBordersX() {
         return new Vector2 (transform.position.x - GetWidth(), transform.position.x);
-    }
-
-    void Start()
-    {
-        digits = new List<GameObject>();
-        Initiate(value);
-    }
-
-    void Update()
-    {
-
     }
 }
