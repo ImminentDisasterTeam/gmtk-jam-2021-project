@@ -106,10 +106,14 @@ public class Player : MonoBehaviour
     {
         ContactFilter2D contactFilter = new ContactFilter2D();
         List<Collider2D> colliders = new List<Collider2D>();
-        if (collider2.OverlapCollider(contactFilter.NoFilter(), colliders) > 0)
-        {
-            return colliders[0].gameObject;
+        var hits = collider2.OverlapCollider(contactFilter.NoFilter(), colliders);
+        for (var i = 0; i < hits; i++) {
+            var obj = colliders[i].gameObject;
+            if (obj.CompareTag("Storage") || obj.CompareTag("Digit")) {
+                return obj;
+            }
         }
+        
         return null;
     }
 
