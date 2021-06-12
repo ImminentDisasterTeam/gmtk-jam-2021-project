@@ -8,7 +8,14 @@ public class Player : MonoBehaviour
     Number rightHand;
 
     [SerializeField]
-    int speed;
+    float speed;
+
+    public float GetSpeed() { return speed; }
+    private void SetSpeed(float speed)
+    {
+        this.speed = speed;
+        this.GetComponent<PlayerMovement>().SetSpeed(speed);
+    }
 
     public void Summ()
     {
@@ -33,7 +40,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        SetSpeed(speed);
     }
 
     // Update is called once per frame
