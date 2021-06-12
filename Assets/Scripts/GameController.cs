@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     Player player;
     [SerializeField] GameObject playerObject;
     [SerializeField] GameObject numberObject;
+    [SerializeField] LevelSizeHolder levelSizeHolder;
+    [SerializeField] LayerMask spawnCollisionLayer;
+    
 
     public void OnPlayerDeath()
     {
@@ -32,20 +35,22 @@ public class GameController : MonoBehaviour
 
     Vector3 GetRandomPoint()
     {
-        float x = Random.Range(-10f, 10f);
-        float y = Random.Range(-5f, 5f);
+        var x = Random.Range(-levelSizeHolder.levelSize.x / 2, levelSizeHolder.levelSize.x / 2);
+        var y = Random.Range(-levelSizeHolder.levelSize.y / 2, levelSizeHolder.levelSize.y / 2);
         Vector3 vector = new Vector3(x, y);
 
-        RaycastHit2D hit = Physics2D.BoxCast(vector, numberRadius, 0, Vector2.up);
-        int counter = 20;
+        RaycastHit2D hit = Physics2D.BoxCast(vector, numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
+        int counter = 1000;
         while (counter > 0 && hit.collider != null)
         {
-            x = Random.Range(-10f, 10f);
-            y = Random.Range(-5f, 5f);
+            x = Random.Range(-levelSizeHolder.levelSize.x / 2, levelSizeHolder.levelSize.x / 2);
+            y = Random.Range(-levelSizeHolder.levelSize.y / 2, levelSizeHolder.levelSize.y / 2);
             vector = new Vector3(x, y);
-            hit = Physics2D.BoxCast(vector, numberRadius, 0, Vector2.up);
+            hit = Physics2D.BoxCast(vector, numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
             counter--;
-            Debug.Log("aaaaaaaaaaaaaaaaaaaaa");
+            if (counter == 0) {
+                Debug.Log("FUCK YOU");
+            }
         }
 
         if (counter == 0)
@@ -66,16 +71,10 @@ public class GameController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        var numbersToSpawn = 20;
         SpawnPlayer();
-        for (int i = 0; i < 100; i++)
+        for (var i = 0; i < numbersToSpawn; i++)
             SpawnNewNumber();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

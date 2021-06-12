@@ -31,12 +31,11 @@ public class Number : MonoBehaviour
         digits = new List<GameObject>();
     }
 
-    public static Number Summ(Number left, Number right)
+    public static void Summ(Number left, Number right)
     {
         int sum = left.GetValue() + right.GetValue();
         left.Initiate(sum);
         Destroy(right.gameObject);
-        return left;
     }
 
     public void Initiate(int value)

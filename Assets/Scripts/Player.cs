@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         switchControls();
         yield return new WaitForSeconds(summPause);
         Number.Summ(leftHand, rightHand);
+        SetHandPosition(leftHand, -1);
         rightHand = null;
         summarizing = false;
         switchControls();
@@ -51,6 +52,11 @@ public class Player : MonoBehaviour
             onDeath();
             Destroy(gameObject);
         }
+    }
+
+    public void SetHandPosition(Number hand, int direction) {
+        hand.gameObject.transform.localPosition =
+            new Vector3(direction * width * 0.75f + direction * hand.GetWidth() / 2, 0, 0);
     }
 
     public void Collect(ref Number hand, int direction)
@@ -72,8 +78,7 @@ public class Player : MonoBehaviour
 
         if (hand != null) {
             hand.gameObject.transform.SetParent(transform);
-            hand.gameObject.transform.localPosition =
-                new Vector3(direction * width * 0.75f + direction * hand.GetWidth() / 2, 0, 0);
+            SetHandPosition(hand, direction);
         }
         
         SetSpeed();
