@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider2: {fileID: 1054897817127758098}
   numberObject: {fileID: 5983889319684122159, guid: 5a4eb31ec639f2e469181d291edca931, type: 3}
-  speed: 10
+  maxSpeed: 10
 --- !u!114 &6958773350740780761
 MonoBehaviour:
   m_ObjectHideFlags: 0

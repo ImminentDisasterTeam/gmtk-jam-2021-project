@@ -7,6 +7,12 @@ public class GameController : MonoBehaviour
     int maxValue = 1;
     int minValue = 9;
     Player player;
+    GameObject playerObject;
+
+    public void OnPlayerDeath()
+    {
+
+    }
 
     public void SetRange(int min, int max)
     {
@@ -15,7 +21,7 @@ public class GameController : MonoBehaviour
 
     void SpawnNewNumber()
     {
-
+        
     }
 
     public static void SpawnNumber()
@@ -25,7 +31,8 @@ public class GameController : MonoBehaviour
 
     void SpawnPlayer()
     {
-
+        player = Instantiate(playerObject, Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        player.onDeath = OnPlayerDeath;
     }
 
     void SpawnEraser()

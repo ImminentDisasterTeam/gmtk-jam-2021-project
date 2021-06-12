@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rigidbody2;
     float speed;
     public void SetSpeed(float speed) { this.speed = speed; }
+    bool isControllable;
+    public void SetControl(bool isControllable) { this.isControllable = isControllable; }
 
     // Update is called once per frame
     void Update()
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody2.MovePosition(rigidbody2.position + moveOffset * speed * Time.fixedDeltaTime);
+        if (isControllable)
+            rigidbody2.MovePosition(rigidbody2.position + moveOffset * speed * Time.fixedDeltaTime);
     }
 }

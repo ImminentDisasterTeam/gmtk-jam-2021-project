@@ -7,8 +7,8 @@ public class Storage : MonoBehaviour
     Number number;
 
     public bool Store(Number newNumber)
-    {
-        if (number != null)
+    {        
+        if (number != null || newNumber == null)
             return false;
         number = newNumber;
         number.gameObject.transform.parent = transform;
@@ -17,10 +17,12 @@ public class Storage : MonoBehaviour
     }
     public Number Get()
     {
+        if (number == null)
+            return null;
         Number tmp = number;
         number.gameObject.transform.parent = null;
         number = null;
-        return tmp;
+        return tmp;        
     }
 
     // Start is called before the first frame update

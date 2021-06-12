@@ -53,7 +53,7 @@ public class Number : MonoBehaviour
             GameObject go = Instantiate(digitPrefab, transform.position + new Vector3(offset, 0, 0), Quaternion.identity, transform);
             go.GetComponent<Digit>().SetValue(v%10);
             digits.Add(go);
-            go.GetComponent<Digit>().onTriggerEnter2D += obj => Destroy();
+            go.GetComponent<Digit>().onEnemyEnter += obj => Destroy();
             offset -= digitWidth;
             v/=10;
         }

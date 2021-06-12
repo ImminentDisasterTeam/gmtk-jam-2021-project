@@ -1,54 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
+    public bool isControllable { get; private set; }
+    public Action onDeath;
     Number leftHand;
     Number rightHand;
-
+    bool summarizing;
+    float summDelay = 2f;
+    float summPause = 1f;
     float width = 1f;
     [SerializeField] Collider2D collider2;
     [SerializeField] GameObject numberObject;
-    [SerializeField] float speed;
+    [SerializeField] float maxSpeed;
+    float speed;
     public float GetSpeed() { return speed; }
-    private void SetSpeed(float speed)
+    private void SetSpeed()
     {
-        this.speed = speed;
+        float weight = leftHand != null ? leftHand.GetValue() : 0 + (rightHand != null ? rightHand.GetValue() : 0);
+        weight = weight == 0 ? 1 : weight;
+        this.speed = maxSpeed;
         this.GetComponent<PlayerMovement>().SetSpeed(speed);
     }
+    void StartSummarizing()
+    {
+        if (!summarizing)
+            return;
+        switchControls();
+        Invoke(nameof(Summ), summPause);
+    }
 
-    public void Summ()
+    void Summ()
     {
         Number.Summ(leftHand, rightHand);
+        summarizing = false;
+        switchControls();
     }
-    void Die()
+    void switchControls()
     {
+        isControllable = !isControllable;
+        this.GetComponent<PlayerMovement>().SetControl(isControllable);
+    }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            onDeath();
+            Destroy(gameObject);
+        }
     }
 
     public void Collect(ref Number hand, int offset)
     {
-        GameObject digitObject = GetOverlappingObject();
-        if (digitObject != null && digitObject.tag == "Digit" && digitObject.transform.parent.parent != this.transform)
+        GameObject overlappingObject = GetOverlappingObject();
+
+        if (overlappingObject == null)
+            return;
+
+        if (overlappingObject.tag == "Digit" && overlappingObject.transform.parent.parent != this.transform)
         {
-            hand = digitObject.GetComponentInParent<Number>();
-            digitObject.transform.parent.SetParent(this.transform);
-
-            digitObject.transform.parent.transform.localPosition = new Vector3(width + offset * hand.GetWidth(), 0, 0);
-
-
-            Debug.Log(transform.localPosition);
-            Debug.Log(digitObject.transform.parent.transform.localPosition);
+            hand = overlappingObject.GetComponentInParent<Number>();
         }
 
+        if (overlappingObject.tag == "Storage")
+        {
+            hand = overlappingObject.GetComponentInParent<Storage>().Get();
+        }
+
+        if (hand == null)
+            return;
+        hand.gameObject.transform.SetParent(this.transform);
+        hand.gameObject.transform.localPosition = new Vector3(width + offset * hand.GetWidth(), 0, 0);
+
+        SetSpeed();
     }
 
     public void Drop(ref Number hand)
     {
-        Debug.Log("drop");
-        hand.gameObject.transform.parent = null;
-        hand = null;
+        GameObject storageObject = GetOverlappingObject();
+        if (storageObject != null && storageObject.tag == "Storage")
+        {
+            Storage storage = storageObject.GetComponent<Storage>();
+            storage.Store(hand);
+            hand = null;
+        }
+        else
+        {
+            hand.gameObject.transform.parent = null;
+            hand = null;
+        }
+        summarizing = false;
+        SetSpeed();
     }
 
     GameObject GetOverlappingObject()
@@ -75,19 +121,27 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetSpeed(speed);
+        SetSpeed();
+        switchControls();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("LeftHand"))
-            Interact(ref leftHand, -1);
+        if (isControllable)
+        {
+            if (Input.GetButtonDown("LeftHand"))
+                Interact(ref leftHand, -1);
 
-        if (Input.GetButtonDown("RightHand"))
-            Interact(ref rightHand, 1);
+            if (Input.GetButtonDown("RightHand"))
+                Interact(ref rightHand, 1);
 
-        if (Input.GetKeyDown("space"))
-            Summ();
+            if (!summarizing && leftHand != null && rightHand != null)
+            {
+                summarizing = true;
+                //start animation
+                Invoke(nameof(StartSummarizing), summDelay);
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using System;
 public class Digit : MonoBehaviour
 {
 
-    public Action<GameObject> onTriggerEnter2D;
+    public Action<GameObject> onEnemyEnter;
 
     int value;
     public int GetValue() {
@@ -30,7 +30,7 @@ public class Digit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Enemy") {
-            onTriggerEnter2D(gameObject);
+            onEnemyEnter(gameObject);
         }
     }
 }
