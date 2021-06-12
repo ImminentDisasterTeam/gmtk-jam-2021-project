@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 1258314899, guid: efab0daba36579249b373d52eb091a7f, type: 3}
       propertyPath: levelSizeHolder
       value: 
-      objectReference: {fileID: 656012053}
+      objectReference: {fileID: 0}
     - target: {fileID: 4240806778889014846, guid: efab0daba36579249b373d52eb091a7f, type: 3}
       propertyPath: m_Name
       value: Bounds
@@ -182,7 +182,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1258314899, guid: efab0daba36579249b373d52eb091a7f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efab0daba36579249b373d52eb091a7f, type: 3}
 --- !u!1001 &286668566
 PrefabInstance:
@@ -605,3 +606,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 217b702d5098ab74e9aa70b9cc84484c, type: 3}
+--- !u!1 &2007853782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4240806778889014846, guid: efab0daba36579249b373d52eb091a7f, type: 3}
+  m_PrefabInstance: {fileID: 229879203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2007853783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007853782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0ed61b99cd94241a9e23296835cdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSizeHolder: {fileID: 656012053}
