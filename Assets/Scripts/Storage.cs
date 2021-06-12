@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Storage : MonoBehaviour
-{
+public class Storage : MonoBehaviour {
+    [SerializeField] Vector2 triggerOffset;
     Number number;
+    BoxCollider2D _collider;
+    BoxCollider2D _trigger;
+    SpriteRenderer _renderer;
+    Vector2 _lastSize;
 
     public bool Store(Number newNumber)
     {        
@@ -27,5 +30,24 @@ public class Storage : MonoBehaviour
         number.gameObject.transform.parent = null;
         number = null;
         return tmp;        
+    }
+
+    void Awake() {
+        _collider = GetComponents<BoxCollider2D>().First(c => !c.isTrigger);
+        _trigger = GetComponents<BoxCollider2D>().First(c => c.isTrigger);
+        _renderer = GetComponent<SpriteRenderer>();
+        UpdateSizes(_renderer.size);
+    }
+
+    void Update() {
+        if (_renderer.size != _lastSize) {
+            UpdateSizes(_renderer.size);
+        }
+    }
+
+    void UpdateSizes(Vector2 newSize) {
+        _lastSize = newSize;
+        _collider.size = _lastSize;
+        _trigger.size = _lastSize + triggerOffset;
     }
 }
