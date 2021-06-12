@@ -4,29 +4,45 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    int maxValue = 1;
-    int minValue = 9;
+    int minValue = 1;
+    int maxValue = 20;
+    float numberRadius = 8f;
     Player player;
-    GameObject playerObject;
+    [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject numberObject;
 
     public void OnPlayerDeath()
     {
 
     }
 
-    public void SetRange(int min, int max)
+    public void SetNumbersRange(int min, int max)
     {
 
     }
 
     void SpawnNewNumber()
     {
-        
+        Vector3 spawnPoint = GetRandomPoint();
+        Number number = Instantiate(numberObject, spawnPoint, Quaternion.identity).GetComponent<Number>();
+        number.Initiate(Random.Range(minValue, maxValue));
     }
 
-    public static void SpawnNumber()
+    Vector3 GetRandomPoint()
     {
+        float x = Random.Range(-10f, 10f);
+        float y = Random.Range(-5f, 5f);
+        Vector3 vector = new Vector3(x, y);
 
+        while (Physics2D.OverlapCircle(vector, numberRadius, 0) != null)
+        {
+            x = Random.Range(-10f, 10f);
+            y = Random.Range(-5f, 5f);
+            vector = new Vector3(x, y);
+            Debug.Log("aaaaaaaaaaaaaaaaa");
+        }
+
+        return vector;
     }
 
     void SpawnPlayer()
@@ -43,7 +59,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        SpawnPlayer();
+        for (int i = 0; i < 15; i++)
+            SpawnNewNumber();
     }
 
     // Update is called once per frame

@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     void Summ()
     {
         Number.Summ(leftHand, rightHand);
+        rightHand = null;
         summarizing = false;
         switchControls();
     }
@@ -74,7 +75,7 @@ public class Player : MonoBehaviour
         if (hand == null)
             return;
         hand.gameObject.transform.SetParent(this.transform);
-        hand.gameObject.transform.localPosition = new Vector3(width + offset * hand.GetWidth(), 0, 0);
+        hand.gameObject.transform.localPosition = new Vector3(offset > 0 ? offset * width + hand.GetWidth() : offset * width / 2, 0, 0);
 
         SetSpeed();
     }
@@ -85,8 +86,8 @@ public class Player : MonoBehaviour
         if (storageObject != null && storageObject.tag == "Storage")
         {
             Storage storage = storageObject.GetComponent<Storage>();
-            storage.Store(hand);
-            hand = null;
+            if (storage.Store(hand))
+                hand = null;
         }
         else
         {

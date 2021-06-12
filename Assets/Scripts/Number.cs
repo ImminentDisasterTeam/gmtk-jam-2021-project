@@ -5,7 +5,7 @@ using System;
 
 public class Number : MonoBehaviour
 {
-    List<GameObject> digits;
+    List<GameObject> digits = new List<GameObject>();
     [SerializeField] int value;
     
     [SerializeField] GameObject digitPrefab;
@@ -65,16 +65,5 @@ public class Number : MonoBehaviour
 
     public Vector2 GetBordersX() {
         return new Vector2 (transform.position.x - GetWidth(), transform.position.x);
-    }
-
-    void Start()
-    {
-        digits = new List<GameObject>();
-        Initiate(value);
-    }
-
-    void Update()
-    {
-
     }
 }
