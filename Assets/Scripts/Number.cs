@@ -50,11 +50,10 @@ public class Number : MonoBehaviour
         int v = value;
         float offset = -digitWidth;
         while (v > 0) {
-            Debug.Log(v%10);
             GameObject go = Instantiate(digitPrefab, transform.position + new Vector3(offset, 0, 0), Quaternion.identity, transform);
             go.GetComponent<Digit>().SetValue(v%10);
             digits.Add(go);
-            go.GetComponent<Digit>().onCollisionEnter2D += obj => Destroy();
+            go.GetComponent<Digit>().onTriggerEnter2D += obj => Destroy();
             offset -= digitWidth;
             v/=10;
         }
