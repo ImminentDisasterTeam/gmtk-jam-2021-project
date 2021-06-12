@@ -13,6 +13,7 @@ public class LevelController : MonoBehaviour
     int goal = 50;
     Vector2 numberRadius = new Vector2(2f, 2f);
     Player player;
+    GameObject parentObject;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject numberPrefab;
     [SerializeField] GameObject eraserPrefab;
@@ -43,6 +44,9 @@ public class LevelController : MonoBehaviour
         this.eraserSpawnRate = eraserSpawnInterval;
         this.numberSpawnRate = numberSpawnRate;
         this.goal = goal;
+
+        parentObject = new GameObject();
+
         SpawnPlayer();
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
         _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
@@ -52,6 +56,8 @@ public class LevelController : MonoBehaviour
     {
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
         player.onDeath = OnPlayerDeath;
+
+        player.transform.SetParent(parentObject.transform);
     }
 
     IEnumerator SpawnNewNumber()
@@ -64,6 +70,7 @@ public class LevelController : MonoBehaviour
             var number = Instantiate(numberPrefab, spawnPoint, Quaternion.identity).GetComponent<Number>();
             number.Initiate(Random.Range(minValue, maxValue));
 
+            number.transform.SetParent(parentObject.transform);
             yield return new WaitForSeconds(numberSpawnRate);
         }
     }
@@ -72,8 +79,9 @@ public class LevelController : MonoBehaviour
     {
         for (var i = 0; i < erasersCount; ++i)
         {
-            Instantiate(eraserPrefab, GetRandomPosition(), Quaternion.identity);
+            GameObject eraser = Instantiate(eraserPrefab, GetRandomPosition(), Quaternion.identity);
 
+            eraser.transform.SetParent(parentObject.transform);
             yield return new WaitForSeconds(eraserSpawnRate);
         }
     }
@@ -88,7 +96,11 @@ public class LevelController : MonoBehaviour
         // }
         // SpawnEraser();
         InitializeLevel();
-        Invoke(nameof(InitializeLevel), 10f);
+    }
+
+    public void ClearLevel()
+    {
+        Destroy(parentObject);
     }
 
     Vector2 GetRandomPosition()

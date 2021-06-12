@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            hand.gameObject.transform.parent = null;
+            result.gameObject.transform.parent = transform.parent;
             result = null;
         }
         return result;
