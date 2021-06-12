@@ -18,9 +18,9 @@ public class PlayerMovement : MonoBehaviour
         moveOffset.y = Input.GetAxisRaw("Vertical");
     }
 
-    private void FixedUpdate()
-    {
-        if (isControllable)
-            rigidbody2.MovePosition(rigidbody2.position + moveOffset * speed * Time.fixedDeltaTime);
+    void FixedUpdate() {
+        if (isControllable) {
+            rigidbody2.MovePosition(rigidbody2.position + moveOffset.normalized * (speed * Time.fixedDeltaTime));
+        }
     }
 }

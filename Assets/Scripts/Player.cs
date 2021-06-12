@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         this.GetComponent<PlayerMovement>().SetControl(isControllable);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {

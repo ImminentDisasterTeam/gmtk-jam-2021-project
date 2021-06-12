@@ -302,8 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5ea9d8ea0c2dd4caa94b5473e226d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1317060221757440598, guid: c7bdcd2eaa99f114aa6461a6331767c9, type: 3}
-  numberObject: {fileID: 5983889319684122159, guid: 5a4eb31ec639f2e469181d291edca931, type: 3}
+  playerPrefab: {fileID: 1317060221757440598, guid: c7bdcd2eaa99f114aa6461a6331767c9, type: 3}
+  numberPrefab: {fileID: 5983889319684122159, guid: 5a4eb31ec639f2e469181d291edca931, type: 3}
+  eraserPrefab: {fileID: 8752620394553124891, guid: 62445478c4315434a8f4a50208e1c998, type: 3}
   levelSizeHolder: {fileID: 656012053}
   spawnCollisionLayer:
     serializedVersion: 2

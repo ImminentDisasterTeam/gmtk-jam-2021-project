@@ -23,11 +23,6 @@ public class Digit : MonoBehaviour
         spriteRenderer.sprite = Resources.LoadAll<Sprite>("Sprites/digits")[value];
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Enemy") {
             onEnemyEnter(gameObject);

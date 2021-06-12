@@ -1,21 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
     [Range(50f, 600f)] float speed = 400;
-    float direction;
+
+    [SerializeField] float deltaAngle;
+
+    Rigidbody2D _rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        direction = Random.Range(0.2f, 0.8f);
-        var sum = Mathf.Sqrt(speed*speed / (direction*direction + (1-direction)*(1-direction)));
-        var x = direction*sum;
-        var y = (1-direction)*sum;
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(x, y));
+        // ???: start
+        var direction = Random.Range(0.2f, 0.8f);
+        var sum = Mathf.Sqrt(1 / (direction * direction + (1 - direction) * (1 - direction)));
+        var x = direction * sum;
+        var y = (1 - direction) * sum;
+        // ???: finish
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.AddForce(new Vector2(x, y) * speed);
 
         var collider = GetComponent<Collider2D>();
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -24,9 +30,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnCollisionExit2D(Collision2D other) {
+        _rb.velocity = Quaternion.Euler(0, 0, Random.Range(-deltaAngle / 2, deltaAngle / 2)) * _rb.velocity;
     }
 }
