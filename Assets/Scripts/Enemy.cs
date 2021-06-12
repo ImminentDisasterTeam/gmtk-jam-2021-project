@@ -16,8 +16,12 @@ public class Enemy : MonoBehaviour
         var x = direction*sum;
         var y = (1-direction)*sum;
         GetComponent<Rigidbody2D>().AddForce(new Vector2(x, y));
-        
 
+        var collider = GetComponent<Collider2D>();
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemy in enemies) {
+            Physics2D.IgnoreCollision(enemy.GetComponent<Collider2D>(), collider);
+        }
     }
 
     // Update is called once per frame
