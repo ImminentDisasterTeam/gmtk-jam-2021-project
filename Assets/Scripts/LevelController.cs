@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
     Vector2 numberRadius = new Vector2(2f, 2f);
     Player player;
     GameObject parentObject;
+    [SerializeField] GameObject storagePrefab;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject numberPrefab;
     [SerializeField] GameObject eraserPrefab;
@@ -48,6 +49,7 @@ public class LevelController : MonoBehaviour
         parentObject = new GameObject();
 
         SpawnPlayer();
+        SpawnStorage();
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
         _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
     }
@@ -58,6 +60,12 @@ public class LevelController : MonoBehaviour
         player.onDeath = OnPlayerDeath;
 
         player.transform.SetParent(parentObject.transform);
+    }
+    void SpawnStorage()
+    {
+        GameObject storage = Instantiate(storagePrefab, Vector3.zero, Quaternion.identity);
+
+        storage.transform.SetParent(parentObject.transform);
     }
 
     IEnumerator SpawnNewNumber()

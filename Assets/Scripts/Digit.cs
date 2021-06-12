@@ -26,6 +26,12 @@ public class Digit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Enemy") {
             onEnemyEnter(gameObject);
+            GameObject grandparent = transform.parent.parent.gameObject;
+            if(grandparent !=null && grandparent.CompareTag("Player"))
+            {
+                grandparent.GetComponent<Player>().StopSumm();
+            }
+
         }
     }
 }

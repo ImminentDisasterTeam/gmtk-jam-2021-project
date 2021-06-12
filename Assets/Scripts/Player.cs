@@ -18,28 +18,25 @@ public class Player : MonoBehaviour
     [SerializeField] float maxSpeed;
     float speed;
     public float GetSpeed() { return speed; }
-    void SetLeftHand(Number hand)
-    {
-        leftHand = hand;
 
+    public void StopSumm()
+    {
         if (_summarizingCoro != null)
         {
             StopCoroutine(_summarizingCoro);
         }
         summarizing = false;
-
+    }
+    void SetLeftHand(Number hand)
+    {
+        leftHand = hand;
+        StopSumm();
         SetSpeed();
     }
     void SetRightHand(Number hand)
     {
         rightHand = hand;
-
-        if (_summarizingCoro != null)
-        {
-            StopCoroutine(_summarizingCoro);
-        }
-        summarizing = false;
-
+        StopSumm();
         SetSpeed();
     }
 
