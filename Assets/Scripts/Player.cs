@@ -18,23 +18,21 @@ public class Player : MonoBehaviour
     [SerializeField] float maxSpeed;
     float speed;
     public float GetSpeed() { return speed; }
+
+    Coroutine _summarizingCoro;
+    
     private void SetSpeed()
     {
         float weight = leftHand != null ? leftHand.GetValue() : 0 + (rightHand != null ? rightHand.GetValue() : 0);
         weight = weight == 0 ? 1 : weight;
-        this.speed = maxSpeed;
-        this.GetComponent<PlayerMovement>().SetSpeed(speed);
-    }
-    void StartSummarizing()
-    {
-        if (!summarizing)
-            return;
-        switchControls();
-        Invoke(nameof(Summ), summPause);
+        speed = maxSpeed;
+        GetComponent<PlayerMovement>().SetSpeed(speed);
     }
 
-    void Summ()
-    {
+    IEnumerator Summ() {
+        yield return new WaitForSeconds(summDelay);
+        switchControls();
+        yield return new WaitForSeconds(summPause);
         Number.Summ(leftHand, rightHand);
         rightHand = null;
         summarizing = false;
@@ -48,44 +46,50 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.CompareTag("Enemy"))
         {
             onDeath();
             Destroy(gameObject);
         }
     }
 
-    public void Collect(ref Number hand, int offset)
+    public void Collect(ref Number hand, int direction)
     {
         GameObject overlappingObject = GetOverlappingObject();
 
         if (overlappingObject == null)
             return;
 
-        if (overlappingObject.tag == "Digit" && overlappingObject.transform.parent.parent != this.transform)
+        if (overlappingObject.CompareTag("Digit") && overlappingObject.transform.parent.parent != transform)
         {
             hand = overlappingObject.GetComponentInParent<Number>();
         }
 
-        if (overlappingObject.tag == "Storage")
+        if (overlappingObject.CompareTag("Storage"))
         {
             hand = overlappingObject.GetComponentInParent<Storage>().Get();
         }
 
-        if (hand == null)
-            return;
-        hand.gameObject.transform.SetParent(this.transform);
-        hand.gameObject.transform.localPosition = new Vector3(offset > 0 ? offset * width + hand.GetWidth() : offset * width / 2, 0, 0);
-
+        if (hand != null) {
+            hand.gameObject.transform.SetParent(transform);
+            hand.gameObject.transform.localPosition =
+                new Vector3(direction * width * 0.75f + direction * hand.GetWidth() / 2, 0, 0);
+        }
+        
         SetSpeed();
     }
 
-    public void Drop(ref Number hand)
+    void Drop(ref Number hand)
     {
-        GameObject storageObject = GetOverlappingObject();
-        if (storageObject != null && storageObject.tag == "Storage")
+        if (_summarizingCoro != null) {
+            StopCoroutine(_summarizingCoro);
+        }
+        summarizing = false;
+        
+        var storageObject = GetOverlappingObject();
+        if (storageObject != null && storageObject.CompareTag("Storage"))
         {
-            Storage storage = storageObject.GetComponent<Storage>();
+            var storage = storageObject.GetComponent<Storage>();
             if (storage.Store(hand))
                 hand = null;
         }
@@ -109,14 +113,15 @@ public class Player : MonoBehaviour
         return null;
     }
 
-    void Interact(ref Number hand, int offset)
+    void Interact(ref Number hand, int direction)
     {
         if (hand == null)
         {
-            Collect(ref hand, offset);
+            Collect(ref hand, direction);
         }
-        else
+        else {
             Drop(ref hand);
+        }
     }
 
     // Start is called before the first frame update
@@ -141,7 +146,8 @@ public class Player : MonoBehaviour
             {
                 summarizing = true;
                 //start animation
-                Invoke(nameof(StartSummarizing), summDelay);
+                // Invoke(nameof(StartSummarizing), summDelay);
+                _summarizingCoro = StartCoroutine(Summ());
             }
         }
     }

@@ -48,7 +48,11 @@ public class Number : MonoBehaviour
 
     private void InstantiateDigits() {
         int v = value;
-        float offset = -digitWidth;
+        // float offset = -digitWidth;
+
+        var digitCount = v.ToString().Length;
+        var offset = (digitCount - 1) / 2f * digitWidth;
+        
         while (v > 0) {
             GameObject go = Instantiate(digitPrefab, transform.position + new Vector3(offset, 0, 0), Quaternion.identity, transform);
             go.GetComponent<Digit>().SetValue(v%10);
@@ -60,7 +64,7 @@ public class Number : MonoBehaviour
     }
 
     public float GetWidth() {
-        return digitWidth*digits.Count;
+        return digitWidth * digits.Count;
     }
 
     public Vector2 GetBordersX() {

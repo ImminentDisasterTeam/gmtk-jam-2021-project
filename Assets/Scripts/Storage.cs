@@ -8,32 +8,31 @@ public class Storage : MonoBehaviour
 
     public bool Store(Number newNumber)
     {        
-        if (number != null || newNumber == null)
+        if (number != null || newNumber == null) {
+            if (number != null) Debug.Log("storage full");
+            if (newNumber == null) Debug.Log("nothing to store");
+            
             return false;
+        }
+        
+        Debug.Log("store something");
         number = newNumber;
+        
         number.gameObject.transform.parent = transform;
         number.gameObject.transform.localPosition = Vector3.zero;
         return true;
     }
     public Number Get()
     {
-        if (number == null)
+        if (number == null) {
+            Debug.Log("nothing to get");
             return null;
-        Number tmp = number;
+        }
+        
+        Debug.Log("get smth");
+        var tmp = number;
         number.gameObject.transform.parent = null;
         number = null;
         return tmp;        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
