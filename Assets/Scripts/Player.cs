@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     Number leftHand;
     Number rightHand;
     bool summarizing;
-    float summDelay = 2f;
-    float summPause = 1f;
+    float summDelay = 1f;
+    // float summPause = 1f;
     float width = 1f;
     [SerializeField] Collider2D collider2;
     [SerializeField] GameObject numberObject;

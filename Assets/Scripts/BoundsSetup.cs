@@ -1,12 +1,17 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
 public class BoundsSetup : MonoBehaviour {
     [SerializeField] LevelSizeHolder levelSizeHolder;
+    SpriteRenderer _renderer;
     const float DefaultSize = 1;
 
+    public void SetVisible(bool visible) {
+        _renderer.enabled = visible;
+    }
+    
     void Awake() {
+        _renderer = GetComponent<SpriteRenderer>();
         levelSizeHolder.OnChange += OnChangeSize;
     }
 
@@ -26,5 +31,8 @@ public class BoundsSetup : MonoBehaviour {
         left.size = right.size = new Vector2(DefaultSize, levelSize.y);
         left.offset = new Vector2(horizontalOffset, 0);
         right.offset = new Vector2(-horizontalOffset, 0);
+
+        const int frameSizeInPixels = 30;
+        _renderer.size = levelSize + Vector2.one * (2 * frameSizeInPixels) / _renderer.sprite.pixelsPerUnit;
     }
 }
