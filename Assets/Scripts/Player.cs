@@ -19,8 +19,29 @@ public class Player : MonoBehaviour
     float speed;
     public float GetSpeed() { return speed; }
 
+    public void StopSumm()
+    {
+        if (_summarizingCoro != null)
+        {
+            StopCoroutine(_summarizingCoro);
+        }
+        summarizing = false;
+    }
+    void SetLeftHand(Number hand)
+    {
+        leftHand = hand;
+        StopSumm();
+        SetSpeed();
+    }
+    void SetRightHand(Number hand)
+    {
+        rightHand = hand;
+        StopSumm();
+        SetSpeed();
+    }
+
     Coroutine _summarizingCoro;
-    
+
     private void SetSpeed()
     {
         float weight = leftHand != null ? leftHand.GetValue() : 0 + (rightHand != null ? rightHand.GetValue() : 0);
@@ -29,11 +50,13 @@ public class Player : MonoBehaviour
         GetComponent<PlayerMovement>().SetSpeed(speed);
     }
 
-    IEnumerator Summ() {
+    IEnumerator Summ()
+    {
         yield return new WaitForSeconds(summDelay);
         switchControls();
         yield return new WaitForSeconds(summPause);
         Number.Summ(leftHand, rightHand);
+        SetHandPosition(leftHand, -1);
         rightHand = null;
         summarizing = false;
         switchControls();
@@ -44,7 +67,7 @@ public class Player : MonoBehaviour
         this.GetComponent<PlayerMovement>().SetControl(isControllable);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -53,75 +76,82 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Collect(ref Number hand, int direction)
+    public void SetHandPosition(Number hand, int direction)
     {
+        hand.gameObject.transform.localPosition =
+            new Vector3(direction * width * 0.75f + direction * hand.GetWidth() / 2, 0, 0);
+    }
+
+    Number Collect(ref Number hand, int direction)
+    {
+        Number result = hand;
         GameObject overlappingObject = GetOverlappingObject();
 
         if (overlappingObject == null)
-            return;
+            return result;
 
         if (overlappingObject.CompareTag("Digit") && overlappingObject.transform.parent.parent != transform)
         {
-            hand = overlappingObject.GetComponentInParent<Number>();
+            result = overlappingObject.GetComponentInParent<Number>();
         }
 
         if (overlappingObject.CompareTag("Storage"))
         {
-            hand = overlappingObject.GetComponentInParent<Storage>().Get();
+            result = overlappingObject.GetComponentInParent<Storage>().Get();
         }
 
-        if (hand != null) {
-            hand.gameObject.transform.SetParent(transform);
-            hand.gameObject.transform.localPosition =
-                new Vector3(direction * width * 0.75f + direction * hand.GetWidth() / 2, 0, 0);
+        if (result != null)
+        {
+            result.gameObject.transform.SetParent(transform);
+            SetHandPosition(result, direction);
         }
-        
-        SetSpeed();
+
+        return result;
     }
 
-    void Drop(ref Number hand)
+    Number Drop(ref Number hand)
     {
-        if (_summarizingCoro != null) {
-            StopCoroutine(_summarizingCoro);
-        }
-        summarizing = false;
-        
+        Number result = hand;
+
         var storageObject = GetOverlappingObject();
         if (storageObject != null && storageObject.CompareTag("Storage"))
         {
             var storage = storageObject.GetComponent<Storage>();
-            if (storage.Store(hand))
-                hand = null;
+            if (storage.Store(result))
+                result = null;
         }
         else
         {
-            hand.gameObject.transform.parent = null;
-            hand = null;
+            result.gameObject.transform.parent = transform.parent;
+            result = null;
         }
-        summarizing = false;
-        SetSpeed();
+        return result;
     }
 
     GameObject GetOverlappingObject()
     {
         ContactFilter2D contactFilter = new ContactFilter2D();
         List<Collider2D> colliders = new List<Collider2D>();
-        if (collider2.OverlapCollider(contactFilter.NoFilter(), colliders) > 0)
+        var hits = collider2.OverlapCollider(contactFilter.NoFilter(), colliders);
+        for (var i = 0; i < hits; i++)
         {
-            return colliders[0].gameObject;
+            var obj = colliders[i].gameObject;
+            if (obj.CompareTag("Storage") || obj.CompareTag("Digit"))
+            {
+                return obj;
+            }
         }
+
         return null;
     }
 
-    void Interact(ref Number hand, int direction)
+    Number Interact(ref Number hand, int direction)
     {
         if (hand == null)
         {
-            Collect(ref hand, direction);
+            return Collect(ref hand, direction);
         }
-        else {
-            Drop(ref hand);
-        }
+        return Drop(ref hand);
     }
 
     // Start is called before the first frame update
@@ -137,10 +167,10 @@ public class Player : MonoBehaviour
         if (isControllable)
         {
             if (Input.GetButtonDown("LeftHand"))
-                Interact(ref leftHand, -1);
+                SetLeftHand(Interact(ref leftHand, -1));
 
             if (Input.GetButtonDown("RightHand"))
-                Interact(ref rightHand, 1);
+                SetRightHand(Interact(ref rightHand, 1));
 
             if (!summarizing && leftHand != null && rightHand != null)
             {
@@ -148,6 +178,7 @@ public class Player : MonoBehaviour
                 //start animation
                 // Invoke(nameof(StartSummarizing), summDelay);
                 _summarizingCoro = StartCoroutine(Summ());
+                // TODO: fix summ if numbers have been erased
             }
         }
     }

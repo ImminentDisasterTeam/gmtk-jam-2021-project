@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     Camera _camera;
-    [SerializeField] float minWidth = 10;
-    [SerializeField] float minHeight = 5;
+    [SerializeField] float xOffset = 1;
+    [SerializeField] float yOffset = 1;
+    [SerializeField] LevelSizeHolder levelSizeHolder;
 
     void Start()
     {
@@ -14,13 +16,11 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (minWidth / _camera.aspect > minHeight) {
-            _camera.orthographicSize = minWidth / _camera.aspect;
-        }
-        else {
-            _camera.orthographicSize = minHeight;
-        }
+    void Update() {
+        var minWidth = levelSizeHolder.levelSize.x / 2 + xOffset;
+        var minHeight = levelSizeHolder.levelSize.y / 2 + yOffset;
+
+        var minWidthInHeight = minWidth / _camera.aspect;
+        _camera.orthographicSize = Math.Max(minWidthInHeight + xOffset, minHeight + yOffset);
     }
 }
