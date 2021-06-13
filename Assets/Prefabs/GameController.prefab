@@ -96,7 +96,7 @@ MonoBehaviour:
     Goal: 70
     FixedGoal: 0
     CanSpawnNumbers: 1
-    ErasersCount: 1
+    ErasersCount: 2
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
     LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
@@ -113,7 +113,7 @@ MonoBehaviour:
     Goal: 500
     FixedGoal: 0
     CanSpawnNumbers: 1
-    ErasersCount: 2
+    ErasersCount: 3
     EraserSpawnRate: 5
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
@@ -132,7 +132,7 @@ MonoBehaviour:
     Goal: 1000
     FixedGoal: 1
     CanSpawnNumbers: 1
-    ErasersCount: 3
+    ErasersCount: 4
     EraserSpawnRate: 6
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: d2bef7ebec14b33419ebdcccc5e3094b, type: 3}
@@ -160,3 +160,4 @@ MonoBehaviour:
   levelController: {fileID: 0}
   audioController: {fileID: 0}
   cutsceneController: {fileID: 0}
+  mainMenu: {fileID: 0}
