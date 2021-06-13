@@ -412,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 656012053}
     - target: {fileID: 6168108190863374666, guid: e5348f45697fdc74bb4c05a9b02acbab, type: 3}
       propertyPath: m_Name
-      value: GameController
+      value: LevelController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5348f45697fdc74bb4c05a9b02acbab, type: 3}

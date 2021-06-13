@@ -49,7 +49,7 @@ public class LevelController : MonoBehaviour
         parentObject = new GameObject();
 
         SpawnPlayer();
-        SpawnStorage();
+        //SpawnStorage();
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
         _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
     }
@@ -63,7 +63,8 @@ public class LevelController : MonoBehaviour
     }
     void SpawnStorage()
     {
-        GameObject storage = Instantiate(storagePrefab, Vector3.zero, Quaternion.identity);
+        Vector3 storageLocation = new Vector3();
+        GameObject storage = Instantiate(storagePrefab, storageLocation, Quaternion.identity);
 
         storage.transform.SetParent(parentObject.transform);
     }
