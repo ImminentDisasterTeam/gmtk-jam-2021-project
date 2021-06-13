@@ -57,7 +57,7 @@ public class Commentator : MonoBehaviour
     {
         if (level == 2)
             AnnounceOnLevel("Oh no, it's him! One of the Erasers is nearby! Be careful, Plus create 13 and don't die. New numbers will sometimes come to you on the field to help, but they may be erased.");
-        else if (level == 4) 
+        else if (level == 3) 
             AnnounceOnLevel("Beware, there are more and more enemies!");
     }
 
