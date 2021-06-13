@@ -38,7 +38,10 @@ public class GameController : MonoBehaviour
         {
             cutsceneController.HideCutsceneWindow();
             isSpeaking = false;
-            StartLevel();
+            if (!gameSettings[level].CutsceneOnly)
+                StartLevel();
+            else
+                EndGame();
         }
         else
             cutsceneController.WriteText(gameSettings[level].CutsceneTexts[++currentLine]);
@@ -50,6 +53,12 @@ public class GameController : MonoBehaviour
                 Restart();
             else
                 NextLine();
+    }
+
+    void EndGame()
+    {
+        levelController.StopAllCoroutines();
+        //TODO: go to main menu
     }
     void Restart()
     {

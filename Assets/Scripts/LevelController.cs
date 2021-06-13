@@ -7,10 +7,13 @@ public class LevelController : MonoBehaviour
 {
     int _minValue = 1;
     int _maxValue = 20;
+    int _initialNumberCount = 1;
     int _erasersCount = 1;
     float _eraserSpawnRate = 10f;
     float _numberSpawnRate = 0.75f;
     int _goal = 50;
+    bool _fixedGoal = true;
+    bool _canSpawnNumbers = true;
     readonly Vector2 _numberRadius = new Vector2(2f, 2f);
     Player _player;
     GameObject _parentObject;
@@ -52,6 +55,8 @@ public class LevelController : MonoBehaviour
     {
         if (value >= _goal)
         {
+            if (_fixedGoal && value > _goal)
+                return;
             Debug.Log($"Goal achieved! {value}");
             commentator.CloseAll();
             FinishLevel();
@@ -73,6 +78,9 @@ public class LevelController : MonoBehaviour
         _eraserSpawnRate = gameSettings.EraserSpawnRate;
         _numberSpawnRate = gameSettings.NumberSpawnRate;
         _goal = gameSettings.Goal;
+        _fixedGoal = gameSettings.FixedGoal;
+        _initialNumberCount = gameSettings.InitialNumberCount;
+        _canSpawnNumbers = gameSettings.CanSpawnNumbers;
         _levelSize = gameSettings.levelSize;
         levelSizeHolder.SetSize(_levelSize);
 
@@ -85,9 +93,18 @@ public class LevelController : MonoBehaviour
 
         _player.SummReplic = commentator.Summ;
 
-        _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
+        for (int i = 0; i < _initialNumberCount; ++i)
+        {
+            var number = Instantiate(numberPrefab, GetRandomPosition(), Quaternion.identity).GetComponent<Number>();
+            number.Initiate(Random.Range(_minValue, _maxValue));
+            number.mapObject = _parentObject.transform;
+            number.transform.SetParent(_parentObject.transform);
+        }
+
+        if (_canSpawnNumbers)
+            _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
         _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
-        
+
         bounds.SetVisible(true);
     }
 
@@ -128,11 +145,11 @@ public class LevelController : MonoBehaviour
     {
         for (var i = 0; i < _erasersCount; ++i)
         {
+            yield return new WaitForSeconds(_eraserSpawnRate);
             GameObject eraser = Instantiate(eraserPrefab, GetRandomPosition(), Quaternion.identity);
             commentator.EnemyAppear(i);
 
             eraser.transform.SetParent(_parentObject.transform);
-            yield return new WaitForSeconds(_eraserSpawnRate);
         }
     }
 
