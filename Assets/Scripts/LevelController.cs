@@ -37,6 +37,10 @@ public class LevelController : MonoBehaviour
         }
     }
 
+    void OnStore(int value) {
+        Debug.Log($"Store {value}");
+    }
+
     public void InitializeLevel(int minNumber = 1, int maxNumber = 20, float numberSpawnRate = 0.75f, int goal = 50, int erasersCount = 1, float eraserSpawnInterval = 10f)
     {
         minValue = minNumber;
@@ -68,6 +72,7 @@ public class LevelController : MonoBehaviour
         var storageHeight = storage.GetComponent<SpriteRenderer>().size.y;
         var storageLocation = new Vector2(0, levelSizeHolder.levelSize.y / 2 - storageHeight / 2);
         storage.transform.position = storageLocation;
+        storage.GetComponent<Storage>().OnStore += OnStore;
 
         // storage.transform.SetParent(parentObject.transform);
     }

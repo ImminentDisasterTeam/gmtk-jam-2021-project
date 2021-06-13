@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 public class Storage : MonoBehaviour {
     [SerializeField] Vector2 triggerOffset;
+    public Action<int> OnStore;
     Number number;
     BoxCollider2D _collider;
     BoxCollider2D _trigger;
@@ -16,8 +18,10 @@ public class Storage : MonoBehaviour {
         }
         
         number = newNumber;
-        number.gameObject.transform.parent = transform;
-        number.gameObject.transform.localPosition = Vector3.zero;
+        number.transform.parent = transform;
+        number.transform.localPosition = Vector3.zero;
+        
+        OnStore?.Invoke(number.GetValue());
         return true;
     }
     public Number Get()
