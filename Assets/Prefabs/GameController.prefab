@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings:
-  - CutsceneTexts: []
+  - CutsceneTexts:
+    - work
+    - please
+    - i beg u
     MinValue: 1
     MaxValue: 10
     NumberSpawnRate: 1

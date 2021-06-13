@@ -31,16 +31,16 @@ public class Commentator : MonoBehaviour
     {
         AnnounceOnLevel(index + " enemy appeared!");
     }
+    public void AnnounceDeath()
+    {
+        deadAnnouncement.SetActive(true);
+        textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
+        textWriter.WriteText("You died :(");
+    }
 
     void AnnounceOnLevel(string text) {
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText(text);
-    }
-
-    void AnnounceDeath(string text) {
-        deadAnnouncement.SetActive(true);
-        textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 

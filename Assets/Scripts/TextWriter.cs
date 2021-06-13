@@ -14,11 +14,10 @@ class TextWriter : MonoBehaviour {
     public Action finishWriting;
 
     public bool FastFinish() {
-        bool result = false;
         if (_coro != null) {
             StopCoroutine(_coro);
-            result = true;
         }
+        bool result = textField.text.CompareTo(textToWrite) != 0;
         textField.text = textToWrite;
         return result;
     }

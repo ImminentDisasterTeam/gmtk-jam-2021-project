@@ -9,36 +9,43 @@ public class GameController : MonoBehaviour
     [SerializeField] AudioController audioController;
     [SerializeField] CutsceneController cutsceneController;
     private int level = 0;
+    private int currentLine = 0;
     private bool isSpeaking;
 
-    void StartLevel()
-    {
-        audioController.PlayClip(gameSettings[level].LvlMusic);
-        levelController.InitializeLevel(gameSettings[level], level);
-    }
+    private Coroutine textCoro;
 
+    private void Start()
+    {
+        levelController.SwitchLevel = SwitchLevel;
+        StartTextCutscene();
+    }
     void StartTextCutscene()
     {
         isSpeaking = true;
         cutsceneController.ShowCutsceneWindow();
-
-        string[] lines = gameSettings[level].CutsceneTexts;
-
-        for (var i = 0; i < lines.Length; ++i)
-            cutsceneController.WriteText(lines[i]);
-
-        cutsceneController.HideCutsceneWindow();
-        isSpeaking = false;
+        currentLine = -1;
+        NextLine();
     }
-    void StartLevelSequence()
+    void NextLine()
     {
-
+        if (currentLine + 1 >= gameSettings[level].CutsceneTexts.Length)
+        {
+            cutsceneController.HideCutsceneWindow();
+            isSpeaking = false;
+            StartLevel();
+        }
+        else
+            cutsceneController.WriteText(gameSettings[level].CutsceneTexts[++currentLine]);
     }
-
-    private void Start()
+    void Skip()
     {
-        levelController.SwitchLevel += SwitchLevel;
-        StartLevel();
+        if (!cutsceneController.FastWrite())
+            NextLine();
+    }
+    void StartLevel()
+    {
+        audioController.PlayClip(gameSettings[level].LvlMusic);
+        levelController.InitializeLevel(gameSettings[level], level);
     }
 
     void SwitchLevel()
@@ -50,8 +57,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        // if (isSpeaking && Input.GetButtonDown("Skip"))
-        //     if(!cutsceneController.FastWrite())
-        //         cutsceneController
+        if (isSpeaking && Input.GetButtonDown("Skip"))
+            Skip();
     }
 }

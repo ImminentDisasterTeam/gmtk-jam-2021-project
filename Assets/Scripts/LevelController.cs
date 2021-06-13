@@ -39,6 +39,7 @@ public class LevelController : MonoBehaviour
         {
             StopCoroutine(_spawnNumbersCoro);
         }
+        commentator.AnnounceDeath();
 
         FinishLevel();
     }

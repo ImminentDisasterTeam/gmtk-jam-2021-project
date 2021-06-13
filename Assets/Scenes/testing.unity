@@ -251,6 +251,10 @@ PrefabInstance:
       propertyPath: textWriter
       value: 
       objectReference: {fileID: 141297797}
+    - target: {fileID: 8982264106167097618, guid: af46d322cc12207479dd3fbf9cfa53c0, type: 3}
+      propertyPath: speechSoundVolume
+      value: 0.085
+      objectReference: {fileID: 0}
     - target: {fileID: 8982264106167097619, guid: af46d322cc12207479dd3fbf9cfa53c0, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -789,6 +793,22 @@ PrefabInstance:
       propertyPath: cutsceneController
       value: 
       objectReference: {fileID: 120411763}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[1]
+      value: please
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[2]
+      value: i beg uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[3]
+      value: i
+      objectReference: {fileID: 0}
     - target: {fileID: 6379519113744838022, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
       propertyPath: m_Name
       value: GameController

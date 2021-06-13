@@ -28,6 +28,10 @@ public class AudioController : MonoBehaviour
         audioSource.Play();
     }
 
+    public void StopMusic() {
+        audioSource.Stop();
+    }
+
     void Start()
     {
         
