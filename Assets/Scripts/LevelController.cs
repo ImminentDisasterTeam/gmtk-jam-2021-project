@@ -20,6 +20,9 @@ public class LevelController : MonoBehaviour
     [SerializeField] GameObject eraserPrefab;
     [SerializeField] LevelSizeHolder levelSizeHolder;
     [SerializeField] LayerMask spawnCollisionLayer;
+    [SerializeField] Commentator commentator;
+
+    public System.Action SwitchLevel;
 
     Coroutine _spawnErasersCoro;
     Coroutine _spawnNumbersCoro;
@@ -43,6 +46,7 @@ public class LevelController : MonoBehaviour
         if (value >= _goal) {
             Debug.Log($"Goal achieved! {value}");
             FinishLevel();
+            SwitchLevel();
         }
     }
 
@@ -58,6 +62,22 @@ public class LevelController : MonoBehaviour
         _eraserSpawnRate = eraserSpawnInterval;
         _numberSpawnRate = numberSpawnRate;
         _goal = goal;
+
+        _parentObject = new GameObject();
+
+        SpawnPlayer();
+        SpawnStorage();
+        _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
+        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
+    }
+
+    public void InitializeLevel(GameSettings gameSettings){
+        _minValue = gameSettings.MinValue;
+        _maxValue = gameSettings.MaxValue;
+        _erasersCount = gameSettings.ErasersCount;
+        _eraserSpawnRate = gameSettings.EraserSpawnRate;
+        _numberSpawnRate = gameSettings.NumberSpawnRate;
+        _goal = gameSettings.Goal;
 
         _parentObject = new GameObject();
 
@@ -110,18 +130,6 @@ public class LevelController : MonoBehaviour
             eraser.transform.SetParent(_parentObject.transform);
             yield return new WaitForSeconds(_eraserSpawnRate);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // var numbersToSpawn = 20;
-        // SpawnPlayer();
-        // for (var i = 0; i < numbersToSpawn; i++) {
-        //     SpawnNewNumber();
-        // }
-        // SpawnEraser();
-        InitializeLevel();
     }
 
     public void ClearLevel()

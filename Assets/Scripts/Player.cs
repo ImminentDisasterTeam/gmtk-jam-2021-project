@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject numberObject;
     [SerializeField] float maxSpeed;
     float speed;
+    public Action replic;
     public float GetSpeed() { return speed; }
 
     public void StopSumm()
