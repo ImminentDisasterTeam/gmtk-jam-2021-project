@@ -150,6 +150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Commentator
       objectReference: {fileID: 0}
+    - target: {fileID: 7873493555784568838, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
+      propertyPath: pauseTime
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7873493555784568839, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -262,6 +266,14 @@ PrefabInstance:
       propertyPath: textWriter
       value: 
       objectReference: {fileID: 141297797}
+    - target: {fileID: 8982264106167097618, guid: af46d322cc12207479dd3fbf9cfa53c0, type: 3}
+      propertyPath: speechSound
+      value: 
+      objectReference: {fileID: 8300000, guid: cdbaa6c9f867f4e4db2e171d7508a578, type: 3}
+    - target: {fileID: 8982264106167097618, guid: af46d322cc12207479dd3fbf9cfa53c0, type: 3}
+      propertyPath: speechSoundVolume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8982264106167097619, guid: af46d322cc12207479dd3fbf9cfa53c0, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -459,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553250097528411292, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_FontData.m_Alignment
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5553250097528411293, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_SizeDelta.x
@@ -515,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6452844195738379648, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_FontData.m_Alignment
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6452844195738379649, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_SizeDelta.y
