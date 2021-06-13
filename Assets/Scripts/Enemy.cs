@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float deltaAngle;
 
+    bool _setuped;
     Rigidbody2D _rb;
+    Animator _animator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public void Setup() {
         // ???: start
         var direction = Random.Range(0.2f, 0.8f);
         var sum = Mathf.Sqrt(1 / (direction * direction + (1 - direction) * (1 - direction)));

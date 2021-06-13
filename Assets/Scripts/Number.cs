@@ -10,8 +10,10 @@ public class Number : MonoBehaviour
     
     [SerializeField] GameObject digitPrefab;
     [SerializeField] float digitWidth = 0.5f;
+    [SerializeField] GameObject destructionPrefab;
 
     public Action<GameObject> onDestroy;
+    public Transform mapObject;
 
     public int GetValue()
     {
@@ -21,6 +23,8 @@ public class Number : MonoBehaviour
     private void Destroy()
     {
         // onDestroy(gameObject);
+        var destructionAnimation = Instantiate(destructionPrefab, transform.position, Quaternion.identity);
+        destructionAnimation.transform.parent = mapObject;
         Destroy(gameObject);
     }
 

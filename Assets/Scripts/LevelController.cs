@@ -95,7 +95,7 @@ public class LevelController : MonoBehaviour
                 yield return null;
             var number = Instantiate(numberPrefab, spawnPoint, Quaternion.identity).GetComponent<Number>();
             number.Initiate(Random.Range(_minValue, _maxValue));
-
+            number.mapObject = _parentObject.transform;
             number.transform.SetParent(_parentObject.transform);
             yield return new WaitForSeconds(_numberSpawnRate);
         }
