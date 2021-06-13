@@ -15,6 +15,8 @@ public class Number : MonoBehaviour
     public Action<GameObject> onDestroy;
     public Transform mapObject;
 
+    public BoundsSetup bounds;
+
     public int GetValue()
     {
         return value;
@@ -73,4 +75,14 @@ public class Number : MonoBehaviour
     public Vector2 GetBordersX() {
         return new Vector2 (transform.position.x - GetWidth(), transform.position.x);
     }
+    //
+    // void Start() {
+    //     _bounds = 
+    // }
+    //
+    // public void Update() {
+    //     if (transform.parent == mapObject) {
+    //         
+    //     }
+    // }
 }
