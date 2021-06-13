@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7873493555784568839}
   - component: {fileID: 7873493555784568836}
   - component: {fileID: 7873493555784568838}
+  - component: {fileID: 5373851030057372420}
   m_Layer: 0
   m_Name: Commentator
   m_TagString: Untagged
@@ -62,3 +63,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textField: {fileID: 0}
   pauseTime: 0.1
+--- !u!114 &5373851030057372420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873493555784568837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47d7a0299d434cddaffbede41c666a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneWindow: {fileID: 0}

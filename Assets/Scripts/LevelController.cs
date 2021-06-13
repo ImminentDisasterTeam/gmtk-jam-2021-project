@@ -72,7 +72,7 @@ public class LevelController : MonoBehaviour
 
         SpawnPlayer();
         SpawnStorage();
-        
+
         _player.SummReplic = commentator.Summ;
 
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));

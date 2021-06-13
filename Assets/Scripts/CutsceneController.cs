@@ -21,8 +21,8 @@ public class CutsceneController : MonoBehaviour
         textWriter.WriteText(text);
     }
 
-    public void FastWrite() {
-        textWriter.FastFinish();
+    public bool FastWrite() {
+        return textWriter.FastFinish();
     }
 
     void Start()

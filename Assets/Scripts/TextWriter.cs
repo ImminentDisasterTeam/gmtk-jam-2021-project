@@ -13,11 +13,14 @@ class TextWriter : MonoBehaviour {
     public Action<Char> writeLetter;
     public Action finishWriting;
 
-    public void FastFinish() {
+    public bool FastFinish() {
+        bool result = false;
         if (_coro != null) {
             StopCoroutine(_coro);
+            result = true;
         }
         textField.text = textToWrite;
+        return result;
     }
 
     public void Clear() {

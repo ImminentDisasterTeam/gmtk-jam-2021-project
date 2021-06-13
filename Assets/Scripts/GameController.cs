@@ -7,7 +7,9 @@ public class GameController : MonoBehaviour
     [SerializeField] GameSettings[] gameSettings;
     [SerializeField] LevelController levelController;
     [SerializeField] AudioController audioController;
+    [SerializeField] CutsceneController cutsceneController;
     private int level = 0;
+    private bool isSpeaking;
 
     void StartLevel()
     {
@@ -16,6 +18,19 @@ public class GameController : MonoBehaviour
     }
 
     void StartTextCutscene()
+    {
+        isSpeaking = true;
+        cutsceneController.ShowCutsceneWindow();
+
+        string[] lines = gameSettings[level].CutsceneTexts;
+
+        for (var i = 0; i < lines.Length; ++i)
+            cutsceneController.WriteText(lines[i]);
+
+        cutsceneController.HideCutsceneWindow();
+        isSpeaking = false;
+    }
+    void StartLevelSequence()
     {
 
     }
@@ -31,5 +46,12 @@ public class GameController : MonoBehaviour
         levelController.StopAllCoroutines();
         level += 1;
         StartLevel();
+    }
+
+    private void Update()
+    {
+        // if (isSpeaking && Input.GetButtonDown("Skip"))
+        //     if(!cutsceneController.FastWrite())
+        //         cutsceneController
     }
 }
