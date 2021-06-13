@@ -16,11 +16,11 @@ public class Commentator : MonoBehaviour
 
     public void SetLevel(int level) {
         this.level = level;
+        AnnounceLevel();
     } 
-    public void AnnounceLevel() {
+    void AnnounceLevel() {
         levelAnnouncement.SetActive(true);
-        textWriter.textField = levelAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText("Level " + level + " goal - die");
+        levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - die";
     }
     public void Summ(int sum)
     {
@@ -33,6 +33,8 @@ public class Commentator : MonoBehaviour
     }
     public void AnnounceDeath()
     {
+        onLevelAnnouncement.SetActive(false);
+        levelAnnouncement.SetActive(false);
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText("You died :(");
