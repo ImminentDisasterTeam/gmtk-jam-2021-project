@@ -153,9 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a08265501186314cbe9ad125f359a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathPrefab: {fileID: 2592182542401110060, guid: e5eb80c7b9ae8c347b82bd554dd46222, type: 3}
   collider2: {fileID: 1054897817127758098}
   numberObject: {fileID: 5983889319684122159, guid: 5a4eb31ec639f2e469181d291edca931, type: 3}
   maxSpeed: 10
+  mapObject: {fileID: 0}
   finishedSum: 0
 --- !u!114 &6958773350740780761
 MonoBehaviour:
