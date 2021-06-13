@@ -16,6 +16,8 @@ public class Commentator : MonoBehaviour
 
     public void SetLevel(int level) {
         this.level = level;
+        onLevelAnnouncement.SetActive(false);
+        deadAnnouncement.SetActive(false);
         AnnounceLevel();
     } 
     void AnnounceLevel() {
@@ -37,9 +39,14 @@ public class Commentator : MonoBehaviour
         levelAnnouncement.SetActive(false);
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText("You died :(");
+        textWriter.WriteText("You died :( Press <Space> to restart!");
     }
 
+    public void CloseAll() {
+        onLevelAnnouncement.SetActive(false);
+        levelAnnouncement.SetActive(false);
+        deadAnnouncement.SetActive(false);
+    }
     void AnnounceOnLevel(string text) {
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
@@ -57,9 +64,5 @@ public class Commentator : MonoBehaviour
     void Awake() {
         textWriter = GetComponent<TextWriter>();
         textWriter.finishWriting = InvokeHiding;
-    }
-    void Update()
-    {
-        
     }
 }
