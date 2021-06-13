@@ -53,6 +53,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
     LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
+    levelSize: {x: 20, y: 10}
   - CutsceneTexts: []
     MinValue: 1
     MaxValue: 10
@@ -62,6 +63,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
+    levelSize: {x: 20, y: 10}
   - CutsceneTexts: []
     MinValue: 1
     MaxValue: 10
@@ -71,6 +73,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
     LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
+    levelSize: {x: 20, y: 10}
   - CutsceneTexts: []
     MinValue: 1
     MaxValue: 10
@@ -80,6 +83,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
+    levelSize: {x: 20, y: 10}
   - CutsceneTexts: []
     MinValue: 1
     MaxValue: 10
@@ -89,6 +93,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: 4bcf2a164aaa14bb49db845486c9c3ca, type: 3}
+    levelSize: {x: 20, y: 10}
   - CutsceneTexts: []
     MinValue: 1
     MaxValue: 10
@@ -98,6 +103,7 @@ MonoBehaviour:
     EraserSpawnRate: 0
     CutsceneMusic: {fileID: 8300000, guid: 65405bd26bb38454b85a1b2ec48585e3, type: 3}
     LvlMusic: {fileID: 8300000, guid: 3f009dccb626143e08ce603d8bcc0a6b, type: 3}
+    levelSize: {x: 20, y: 10}
   levelController: {fileID: 0}
   audioController: {fileID: 0}
   cutsceneController: {fileID: 0}

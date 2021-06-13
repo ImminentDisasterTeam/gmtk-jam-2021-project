@@ -1,7 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class LevelSizeHolder : MonoBehaviour {
-    public Vector2 levelSize;
+    Vector2 _levelSize;
+
+    public void SetSize(Vector2 newSize) {
+        _levelSize = newSize;
+        OnChange?.Invoke(_levelSize);
+    }
+    
+   public Action<Vector2> OnChange;
 }

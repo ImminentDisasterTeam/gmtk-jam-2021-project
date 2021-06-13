@@ -14,4 +14,5 @@ public struct GameSettings
     public float EraserSpawnRate;
     public AudioClip CutsceneMusic;
     public AudioClip LvlMusic;
+    public Vector2 levelSize;
 }

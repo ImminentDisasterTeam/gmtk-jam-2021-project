@@ -46,3 +46,4 @@ MonoBehaviour:
   value: 236
   digitPrefab: {fileID: 5487701615130624978, guid: 9bb19e7184f2bc94aae5997d426fd077, type: 3}
   digitWidth: 0.5
+  destructionPrefab: {fileID: 3015451617354960051, guid: 3e5f1ae98aedd5f45a5df3ce08647cbd, type: 3}

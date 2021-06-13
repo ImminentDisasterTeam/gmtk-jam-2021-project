@@ -26,6 +26,7 @@ public class LevelController : MonoBehaviour
 
     Coroutine _spawnErasersCoro;
     Coroutine _spawnNumbersCoro;
+    Vector2 _levelSize;
 
     public void OnPlayerDeath()
     {
@@ -65,6 +66,8 @@ public class LevelController : MonoBehaviour
         _eraserSpawnRate = gameSettings.EraserSpawnRate;
         _numberSpawnRate = gameSettings.NumberSpawnRate;
         _goal = gameSettings.Goal;
+        _levelSize = gameSettings.levelSize;
+        levelSizeHolder.SetSize(_levelSize);
 
         _parentObject = new GameObject();
 
@@ -90,7 +93,7 @@ public class LevelController : MonoBehaviour
     {
         var storage = Instantiate(storagePrefab, _parentObject.transform);
         var storageHeight = storage.GetComponent<SpriteRenderer>().size.y;
-        var storageLocation = new Vector2(0, levelSizeHolder.levelSize.y / 2 - storageHeight / 2);
+        var storageLocation = new Vector2(0, _levelSize.y / 2 - storageHeight / 2);
         storage.transform.position = storageLocation;
         storage.GetComponent<Storage>().OnStore += OnStore;
 
@@ -106,7 +109,7 @@ public class LevelController : MonoBehaviour
                 yield return null;
             var number = Instantiate(numberPrefab, spawnPoint, Quaternion.identity).GetComponent<Number>();
             number.Initiate(Random.Range(_minValue, _maxValue));
-
+            number.mapObject = _parentObject.transform;
             number.transform.SetParent(_parentObject.transform);
             yield return new WaitForSeconds(_numberSpawnRate);
         }
@@ -142,8 +145,8 @@ public class LevelController : MonoBehaviour
                 Debug.Log("FUCK YOU");
                 break;
             }
-            var x = Random.Range(-levelSizeHolder.levelSize.x / 2, levelSizeHolder.levelSize.x / 2);
-            var y = Random.Range(-levelSizeHolder.levelSize.y / 2, levelSizeHolder.levelSize.y / 2);
+            var x = Random.Range(-_levelSize.x / 2, _levelSize.x / 2);
+            var y = Random.Range(-_levelSize.y / 2, _levelSize.y / 2);
             position = new Vector3(x, y);
             hit = Physics2D.BoxCast(position, _numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
 
