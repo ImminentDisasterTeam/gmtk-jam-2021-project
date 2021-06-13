@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
         }
         summarizing = false;
     }
+    public void AllowMonement()
+    {
+        isControllable = true;
+        this.GetComponent<PlayerMovement>().SetControl(isControllable);
+    }
     void SetLeftHand(Number hand)
     {
         leftHand = hand;
@@ -72,15 +77,15 @@ public class Player : MonoBehaviour
         yield return new WaitUntil(() => finishedSum);
         finishedSum = false;
         _animator.SetBool("SumInProgress", false);
-        
+
         Number.Summ(leftHand, rightHand);
         SummReplic(leftHand.GetValue());
 
         SetHandPosition(leftHand, -1);
-        
+
         SetLeftHand(leftHand);
         SetRightHand(null);
-        
+
         summarizing = false;
         switchControls();
     }
@@ -178,7 +183,8 @@ public class Player : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         _animator = GetComponent<Animator>();
         _sumAnimator = transform.GetChild(0).GetComponent<Animator>();
         _leftHolder = transform.GetChild(1).GetComponent<Animator>();
