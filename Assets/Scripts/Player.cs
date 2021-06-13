@@ -31,17 +31,22 @@ public class Player : MonoBehaviour
     void SetLeftHand(Number hand)
     {
         leftHand = hand;
+        _leftHolder.SetBool("Holding", leftHand != null);
         StopSumm();
+        // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
     }
     void SetRightHand(Number hand)
     {
         rightHand = hand;
+        _rightHolder.SetBool("Holding", rightHand != null);
         StopSumm();
+        // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
     }
 
     Coroutine _summarizingCoro;
+    Animator _sumAnimator;
 
     private void SetSpeed()
     {
@@ -51,17 +56,31 @@ public class Player : MonoBehaviour
         GetComponent<PlayerMovement>().SetSpeed(speed);
     }
 
+    public bool finishedSum;
+    Animator _animator;
+    Animator _leftHolder;
+    Animator _rightHolder;
+
     IEnumerator Summ()
     {
+        _sumAnimator.SetTrigger("StartPreparation");
         yield return new WaitForSeconds(summDelay);
         switchControls();
-        yield return new WaitForSeconds(summPause);
-
+        // yield return new WaitForSeconds(summPause);
+        _animator.SetBool("SumInProgress", true);
+        _sumAnimator.SetTrigger("StartSum");
+        yield return new WaitUntil(() => finishedSum);
+        finishedSum = false;
+        _animator.SetBool("SumInProgress", false);
+        
         Number.Summ(leftHand, rightHand);
         SummReplic(leftHand.GetValue());
 
         SetHandPosition(leftHand, -1);
-        rightHand = null;
+        
+        SetLeftHand(leftHand);
+        SetRightHand(null);
+        
         summarizing = false;
         switchControls();
     }
@@ -159,8 +178,11 @@ public class Player : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        _animator = GetComponent<Animator>();
+        _sumAnimator = transform.GetChild(0).GetComponent<Animator>();
+        _leftHolder = transform.GetChild(1).GetComponent<Animator>();
+        _rightHolder = transform.GetChild(2).GetComponent<Animator>();
         SetSpeed();
         switchControls();
     }

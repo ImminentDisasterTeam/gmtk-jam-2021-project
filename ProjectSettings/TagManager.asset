@@ -48,3 +48,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Eraser
+    uniqueID: 3473210087
+    locked: 0
+  - name: Player
+    uniqueID: 139167523
+    locked: 0
+  - name: SumAnimation
+    uniqueID: 2367878427
+    locked: 0
