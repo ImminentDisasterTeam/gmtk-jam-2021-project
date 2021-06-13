@@ -16,11 +16,13 @@ public class Commentator : MonoBehaviour
 
     public void SetLevel(int level) {
         this.level = level;
+        onLevelAnnouncement.SetActive(false);
+        deadAnnouncement.SetActive(false);
+        AnnounceLevel();
     } 
-    public void AnnounceLevel() {
+    void AnnounceLevel() {
         levelAnnouncement.SetActive(true);
-        textWriter.textField = levelAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText("Level " + level + " goal - die");
+        levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - die";
     }
     public void Summ(int sum)
     {
@@ -31,16 +33,23 @@ public class Commentator : MonoBehaviour
     {
         AnnounceOnLevel(index + " enemy appeared!");
     }
+    public void AnnounceDeath()
+    {
+        onLevelAnnouncement.SetActive(false);
+        levelAnnouncement.SetActive(false);
+        deadAnnouncement.SetActive(true);
+        textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
+        textWriter.WriteText("You died :( Press <Space> to restart!");
+    }
 
+    public void CloseAll() {
+        onLevelAnnouncement.SetActive(false);
+        levelAnnouncement.SetActive(false);
+        deadAnnouncement.SetActive(false);
+    }
     void AnnounceOnLevel(string text) {
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText(text);
-    }
-
-    void AnnounceDeath(string text) {
-        deadAnnouncement.SetActive(true);
-        textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
@@ -49,16 +58,11 @@ public class Commentator : MonoBehaviour
     }
 
     void HideWindow() {
-        levelAnnouncement.SetActive(false);
         onLevelAnnouncement.SetActive(false);
     }
 
     void Awake() {
         textWriter = GetComponent<TextWriter>();
         textWriter.finishWriting = InvokeHiding;
-    }
-    void Update()
-    {
-        
     }
 }

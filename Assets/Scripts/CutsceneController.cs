@@ -25,7 +25,7 @@ public class CutsceneController : MonoBehaviour
         return textWriter.FastFinish();
     }
 
-    void Start()
+    void Awake()
     {
         textWriter = GetComponent<TextWriter>();
     }
