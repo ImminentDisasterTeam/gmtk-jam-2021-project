@@ -9,6 +9,7 @@ class TextWriter : MonoBehaviour {
     Coroutine _coro;
 
     public Action<Char> writeLetter;
+    public Action finishWriting;
 
     public void Clear() {
         if (_coro != null) {
@@ -33,5 +34,6 @@ class TextWriter : MonoBehaviour {
             writeLetter(textToWrite[i-1]);
             yield return new WaitForSeconds(timeToWait);
         }
+        finishWriting();
     }
 }
