@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
+    [SerializeField] GameObject deathPrefab;
     public bool isControllable { get; private set; }
     public Action onDeath;
     Number leftHand;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxSpeed;
     float speed;
     public Action<int> SummReplic;
+    public Transform mapObject;
     public float GetSpeed() { return speed; }
 
     public void StopSumm()
@@ -100,6 +101,8 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             onDeath();
+            var deathAnimation = Instantiate(deathPrefab, transform.position, Quaternion.identity);
+            deathAnimation.transform.parent = mapObject;
             Destroy(gameObject);
         }
     }

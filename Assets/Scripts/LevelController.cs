@@ -45,10 +45,16 @@ public class LevelController : MonoBehaviour
         {
             StopCoroutine(_spawnNumbersCoro);
         }
-        commentator.AnnounceDeath();
-        Death();
+        // Death();
 
+        const float wait = 1.5f;
+        Invoke(nameof(DeathLogic), wait);
+    }
+
+    void DeathLogic() {
+        Death();
         FinishLevel();
+        commentator.AnnounceDeath();
     }
 
     void OnStore(int value)
@@ -112,6 +118,7 @@ public class LevelController : MonoBehaviour
     {
         _player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
         _player.onDeath = OnPlayerDeath;
+        _player.mapObject = _parentObject.transform;
 
         _player.transform.SetParent(_parentObject.transform);
     }
