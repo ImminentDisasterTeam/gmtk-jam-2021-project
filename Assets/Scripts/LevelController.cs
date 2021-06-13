@@ -24,6 +24,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] LevelSizeHolder levelSizeHolder;
     [SerializeField] LayerMask spawnCollisionLayer;
     [SerializeField] Commentator commentator;
+    [SerializeField] BoundsSetup bounds;
 
     public System.Action SwitchLevel;
     public System.Action Death;
@@ -65,6 +66,7 @@ public class LevelController : MonoBehaviour
 
     void FinishLevel()
     {
+        bounds.SetVisible(false);
         Destroy(_parentObject);
     }
 
@@ -101,7 +103,9 @@ public class LevelController : MonoBehaviour
 
         if (_canSpawnNumbers)
             _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
-        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser)); ;
+        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
+
+        bounds.SetVisible(true);
     }
 
     void SpawnPlayer()

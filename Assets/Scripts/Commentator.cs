@@ -15,23 +15,62 @@ public class Commentator : MonoBehaviour
     int level;
 
     public void SetLevel(int level) {
-        this.level = level;
+        this.level = level + 1;
         onLevelAnnouncement.SetActive(false);
         deadAnnouncement.SetActive(false);
         AnnounceLevel();
+        InitialSpeech();
     } 
     void AnnounceLevel() {
         levelAnnouncement.SetActive(true);
-        levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - die";
+        switch (level) {
+            case 1:
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 3";
+                break;
+            case 2:
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 13";
+                break;
+            case 3:
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 70";
+                break;
+            case 4:
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 500";
+                break;
+            case 5:
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 1000";
+                break;
+        }
+        
     }
     public void Summ(int sum)
     {
-        AnnounceOnLevel("You get " + sum);
+        if (level == 1) {
+            if (sum == 2)
+                AnnounceOnLevel("Congratulations, you were able to collect a 2! Now add one more to create 3.");
+            else if (sum == 3) {
+                AnnounceOnLevel("There is a storage that no one else can enter but you. Put the collected number there so that it is definitely protected from the enemy.");
+            }
+        }
     }
 
     public void EnemyAppear(int index)
     {
-        AnnounceOnLevel(index + " enemy appeared!");
+        if (level == 2)
+            AnnounceOnLevel("Oh no, it's him! One of the Erasers is nearby! Be careful, Plus create 13 and don't die. New numbers will sometimes come to you on the field to help, but they may be erased.");
+        else if (level == 4) 
+            AnnounceOnLevel("Beware, there are more and more enemies!");
+    }
+
+    private void InitialSpeech() {
+        if (level == 1) {
+            AnnounceOnLevel("Plus, your job is to add numbers. To do this, select two numbers using the Q and E keys. Be careful! Soon you will not be able to move for a while.");
+        }
+        else if (level == 2) {
+            AnnounceOnLevel("Now your task is to create number 13. The goal of the level is written above the field. Good luck, Plus!");
+        }
+        else if (level == 3) {
+            AnnounceOnLevel("The Eraser walks nearby from the start! For now, create a number greater than 70.");
+        }
     }
     public void AnnounceDeath()
     {
@@ -39,7 +78,7 @@ public class Commentator : MonoBehaviour
         levelAnnouncement.SetActive(false);
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText("You died :( Press <Space> to restart!");
+        textWriter.WriteText("The world is plunging into darkness. Erasers are rapidly absorbing numbers, soon we will all die ... Ah, if only there was an opportunity to go back and save, Plus!");
     }
 
     public void CloseAll() {
