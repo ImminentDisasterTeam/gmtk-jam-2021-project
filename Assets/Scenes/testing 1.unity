@@ -135,6 +135,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2075938633}
     - target: {fileID: 7873493555784568836, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
+      propertyPath: timeToHide
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873493555784568836, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
       propertyPath: deadAnnouncement
       value: 
       objectReference: {fileID: 2094311465}
