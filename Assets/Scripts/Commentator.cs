@@ -46,7 +46,7 @@ public class Commentator : MonoBehaviour
     {
         if (level == 1) {
             if (sum == 2)
-                AnnounceOnLevel("Congratulations, you were able to collect a 2! Now add one more to create 3.");
+                AnnounceOnLevel("You got 2! You can sum numbers by getting them in both hands. Now you need number 3!");
             else if (sum == 3) {
                 AnnounceOnLevel("There is a storage that no one else can enter but you. Put the collected number there so that it is definitely protected from the enemy.");
             }
@@ -63,7 +63,7 @@ public class Commentator : MonoBehaviour
 
     private void InitialSpeech() {
         if (level == 1) {
-            AnnounceOnLevel("Plus, your job is to add numbers. To do this, select two numbers using the Q and E keys. Be careful! Soon you will not be able to move for a while.");
+            AnnounceOnLevel("Use Q and E to take numbers.");
         }
         else if (level == 2) {
             AnnounceOnLevel("Now your task is to create number 13. The goal of the level is written above the field. Good luck, Plus!");
