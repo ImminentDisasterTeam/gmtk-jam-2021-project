@@ -1,22 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 class TextWriter : MonoBehaviour {
-    [TextArea] [SerializeField] string text;
-    [SerializeField] Text textField;
+    public Text textField;
     [SerializeField] float pauseTime;
-    [SerializeField] bool updateTrigger;
-    bool _prevTriggerValue;
     Coroutine _coro;
 
-    void OnValidate() {
-        if (updateTrigger && !_prevTriggerValue) {
-            WriteText(text);
-        }
-
-        _prevTriggerValue = updateTrigger;
-    }
+    public Action<Char> writeLetter;
 
     public void Clear() {
         if (_coro != null) {
@@ -38,6 +30,7 @@ class TextWriter : MonoBehaviour {
         var textLength = textToWrite.Length;
         for (var i = 1; i <= textLength; i++) {
             textField.text = textToWrite.Substring(0, i);
+            writeLetter(textToWrite[i-1]);
             yield return new WaitForSeconds(timeToWait);
         }
     }
