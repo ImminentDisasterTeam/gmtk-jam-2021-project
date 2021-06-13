@@ -31,10 +31,10 @@ public class Commentator : MonoBehaviour
                 levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 13";
                 break;
             case 3:
-                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 70";
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - more than 70";
                 break;
             case 4:
-                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 500";
+                levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - more than 500";
                 break;
             case 5:
                 levelAnnouncement.GetComponentInChildren<Text>().text ="Level " + level + " goal - 1000";
