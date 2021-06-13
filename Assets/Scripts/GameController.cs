@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     void StartLevel()
     {
         audioController.PlayClip(gameSettings[level].LvlMusic);
-        levelController.InitializeLevel(gameSettings[level]);
+        levelController.InitializeLevel(gameSettings[level], level);
     }
 
     void StartTextCutscene()
@@ -32,5 +32,4 @@ public class GameController : MonoBehaviour
         level += 1;
         StartLevel();
     }
-
 }

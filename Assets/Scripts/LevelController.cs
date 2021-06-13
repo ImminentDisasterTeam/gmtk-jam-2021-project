@@ -42,36 +42,23 @@ public class LevelController : MonoBehaviour
         FinishLevel();
     }
 
-    void OnStore(int value) {
-        if (value >= _goal) {
+    void OnStore(int value)
+    {
+        if (value >= _goal)
+        {
             Debug.Log($"Goal achieved! {value}");
             FinishLevel();
             SwitchLevel();
         }
     }
 
-    void FinishLevel() {
+    void FinishLevel()
+    {
         Destroy(_parentObject);
     }
 
-    public void InitializeLevel(int minNumber = 1, int maxNumber = 20, float numberSpawnRate = 0.75f, int goal = 50, int erasersCount = 1, float eraserSpawnInterval = 10f)
+    public void InitializeLevel(GameSettings gameSettings, int level)
     {
-        _minValue = minNumber;
-        _maxValue = maxNumber;
-        _erasersCount = erasersCount;
-        _eraserSpawnRate = eraserSpawnInterval;
-        _numberSpawnRate = numberSpawnRate;
-        _goal = goal;
-
-        _parentObject = new GameObject();
-
-        SpawnPlayer();
-        SpawnStorage();
-        _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
-        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
-    }
-
-    public void InitializeLevel(GameSettings gameSettings){
         _minValue = gameSettings.MinValue;
         _maxValue = gameSettings.MaxValue;
         _erasersCount = gameSettings.ErasersCount;
@@ -81,8 +68,13 @@ public class LevelController : MonoBehaviour
 
         _parentObject = new GameObject();
 
+        commentator.SetLevel(level);
+
         SpawnPlayer();
         SpawnStorage();
+        
+        _player.SummReplic = commentator.Summ;
+
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
         _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
     }
@@ -96,7 +88,6 @@ public class LevelController : MonoBehaviour
     }
     void SpawnStorage()
     {
-        
         var storage = Instantiate(storagePrefab, _parentObject.transform);
         var storageHeight = storage.GetComponent<SpriteRenderer>().size.y;
         var storageLocation = new Vector2(0, levelSizeHolder.levelSize.y / 2 - storageHeight / 2);
@@ -126,6 +117,7 @@ public class LevelController : MonoBehaviour
         for (var i = 0; i < _erasersCount; ++i)
         {
             GameObject eraser = Instantiate(eraserPrefab, GetRandomPosition(), Quaternion.identity);
+            commentator.EnemyAppear(i);
 
             eraser.transform.SetParent(_parentObject.transform);
             yield return new WaitForSeconds(_eraserSpawnRate);

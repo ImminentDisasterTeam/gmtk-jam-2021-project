@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject numberObject;
     [SerializeField] float maxSpeed;
     float speed;
-    public Action replic;
+    public Action<int> SummReplic;
     public float GetSpeed() { return speed; }
 
     public void StopSumm()
@@ -56,7 +56,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(summDelay);
         switchControls();
         yield return new WaitForSeconds(summPause);
+
         Number.Summ(leftHand, rightHand);
+        SummReplic(leftHand.GetValue());
+
         SetHandPosition(leftHand, -1);
         rightHand = null;
         summarizing = false;
