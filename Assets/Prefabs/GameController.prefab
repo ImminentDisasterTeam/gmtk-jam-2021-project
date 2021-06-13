@@ -46,23 +46,13 @@ MonoBehaviour:
   gameSettings:
   - CutsceneOnly: 0
     CutsceneTexts:
-    - 'For many years the kingdom of numbers did not know any troubles and flourished
-      under the rule of the council of hundreds - the elite of the number world.  '
-    - 'Even the Plus, which used to bring confusion, easily creating large numbers
-      and thereby turning the lower classes into the elite, has long been locked
-      up in a dungeon.  '
-    - "But this calm could not last forever. And then they came\u2026  "
-    - 'Nobody knows where the Erasers came from.  '
-    - 'Just at some point, they appeared and sowed confusion in the kingdom, starting
-      to destroy numbers.  '
-    - 'Unfortunately, they appeared in an area where 1000s lived, who were the only
-      ones who had access to secret weapons.  '
-    - 'The unfortunate thousands did not survive the attacks and were all slaughtered. '
-    - 'And it was then that the council remembered the Plus, languishing in captivity.  '
-    - 'Now his ability could be used! BY JOINING TOGETHER THE NUMBERS, the thousand
-      can be brought back to life.  '
-    - 'But the problem remained that during his imprisonment Plus had forgotten how
-      to do anything at all, so first he had to be reminded how to add numbers. '
+    - You can press -SPACEBAR- to advance the dialogue
+    - Enemies appeared in the kingdom of numbers, terrible erasers. They destroyed
+      everything in their path.
+    - They immediately killed 1000s, who were the only ones with access to the weapons
+      storage.
+    - Therefore, the ruling 100s remembered the plus, languishing in the dungeon,
+      and called on him to help save the kingdom.
     MinValue: 1
     MaxValue: 1
     InitialNumberCount: 5
@@ -88,21 +78,17 @@ MonoBehaviour:
     FixedGoal: 1
     CanSpawnNumbers: 1
     ErasersCount: 1
-    EraserSpawnRate: 7
+    EraserSpawnRate: 10
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
     LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
     levelSize: {x: 20, y: 10}
   - CutsceneOnly: 0
     CutsceneTexts:
-    - Looks like Plus remembered how to create numbers.
-    - But the kingdom is still in danger.
+    - Looks like Plus remembered how to create numbers. But the kingdom is still
+      in danger.
     - In order to destroy Erasers, at least one 1000 must be brought back to life.
-    - But the Erasers continue to cause harm, and the large numbers from which you
-      can easily create 1000 have already been erased from this world.
-    - And the big numbers are very scared, which is why they scatter in different
-      directions.
-    - Only not very large numbers are willing to take the risk and help the Plus,
-      because they hope to get a high status that way.
+    - But large numbers are afraid and scatter in different directions, so only small
+      numbers are ready to help.
     MinValue: 1
     MaxValue: 9
     InitialNumberCount: 4
@@ -149,23 +135,16 @@ MonoBehaviour:
     ErasersCount: 3
     EraserSpawnRate: 6
     CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
-    LvlMusic: {fileID: 8300000, guid: 4bcf2a164aaa14bb49db845486c9c3ca, type: 3}
+    LvlMusic: {fileID: 8300000, guid: d2bef7ebec14b33419ebdcccc5e3094b, type: 3}
     levelSize: {x: 20, y: 10}
   - CutsceneOnly: 1
     CutsceneTexts:
-    - '1000 created, Plus successfully coped with its task, BY JOININIG TOGETHER
-      THE NUMBERS! '
-    - 'And now, our savior can open the vault and get out of there a weapon that
-      will destroy our enemy. '
-    - 'The secret weapon of the kingdom of numbers destroys all foreign bodies from
-      this world, so the Erasers slowly evaporate, they will soon disappear from
-      our world. '
-    - 'But no, what''s going on?! '
-    - 'The plus that saved us all is starting to fade too! Is it really?... '
-    - 'Is he really not from our world too? '
-    - 'Plus, thank you for saving our world! '
-    - 'Forgive us for keeping you in prison for so long. '
-    - 'And be happy in your new life! '
+    - 1000 created, Plus successfully coped with its task, BY JOININIG TOGETHER THE
+      NUMBERS!
+    - And now, our savior can open the vault and get out of there a weapon that will
+      destroy our enemy.
+    - The secret weapon of the kingdom of numbers destroys all foreign bodies from
+      this world, so the erasers were destroyed.
     MinValue: 1
     MaxValue: 10
     InitialNumberCount: 0
