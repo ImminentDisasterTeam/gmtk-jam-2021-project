@@ -57,7 +57,8 @@ MonoBehaviour:
     CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
     LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
     levelSize: {x: 20, y: 10}
-  - CutsceneTexts: []
+  - CutsceneTexts:
+    - work correctly pls
     MinValue: 1
     MaxValue: 10
     NumberSpawnRate: 1

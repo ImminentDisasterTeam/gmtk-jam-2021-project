@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
     {
         level += 1;
         levelController.StopAllCoroutines();
-        StartLevel();
+        StartTextCutscene();
     }
 
     private void Update()
