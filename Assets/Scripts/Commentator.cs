@@ -57,11 +57,6 @@ public class Commentator : MonoBehaviour
         textWriter.finishWriting = InvokeHiding;
     }
 
-    void Start()
-    {
-        AnnounceLevel();
-    }
-
     void Update()
     {
         
