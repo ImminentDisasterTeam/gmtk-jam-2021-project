@@ -8,12 +8,13 @@ public class GameController : MonoBehaviour
     [SerializeField] LevelController levelController;
     [SerializeField] AudioController audioController;
     [SerializeField] CutsceneController cutsceneController;
+    [SerializeField] GameObject mainMenu;
     private int level = 0;
     private int currentLine = 0;
     private bool isSpeaking;
     private bool isDead;
 
-    private void Start()
+    void StartGame()
     {
         levelController.SwitchLevel = SwitchLevel;
         levelController.Death = OnPlayerDeath;
@@ -58,7 +59,7 @@ public class GameController : MonoBehaviour
     void EndGame()
     {
         levelController.StopAllCoroutines();
-        //TODO: go to main menu
+        mainMenu.SetActive(true);
     }
     void Restart()
     {
@@ -81,6 +82,12 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (mainMenu.activeSelf && Input.GetButtonDown("Skip"))
+        {
+            mainMenu.SetActive(false);
+            StartGame();
+        }
+
         if (isSpeaking && Input.GetButtonDown("Skip"))
             Skip();
         if (isDead && Input.GetButtonDown("Skip"))
