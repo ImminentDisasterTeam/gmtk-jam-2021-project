@@ -12,6 +12,6 @@ public struct GameSettings
     public int Goal;
     public int ErasersCount;
     public float EraserSpawnRate;
-    public AudioSource CutsceneMusic;
-    public AudioSource LvlMusic;
+    public AudioClip CutsceneMusic;
+    public AudioClip LvlMusic;
 }

@@ -17,46 +17,46 @@ public class Commentator : MonoBehaviour
     public void SetLevel(int level) {
         this.level = level;
     } 
-    private void AnnounceLevel() {
+    public void AnnounceLevel() {
         levelAnnouncement.SetActive(true);
         textWriter.textField = levelAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText("Level " + level + " goal - die");
     }
+    public void Summ(int sum)
+    {
+        AnnounceOnLevel("You get " + sum);
+    }
 
-    private void AnnounceOnLevel(string text) {
+    public void EnemyAppear(int index)
+    {
+        AnnounceOnLevel(index + " enemy appeared!");
+    }
+
+    void AnnounceOnLevel(string text) {
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
-    private void AnnounceDeath(string text) {
+    void AnnounceDeath(string text) {
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
-    public void Summ(int sum) {
-        AnnounceOnLevel("You get " + sum);
-    }
-
-    public void EnemyAppear(int index) {
-        AnnounceOnLevel(index + " enemy appeared!");
-    }
-
-    private void InvokeHiding() {
+    void InvokeHiding() {
         Invoke("HideWindow", timeToHide);
     }
 
-    private void HideWindow() {
+    void HideWindow() {
         levelAnnouncement.SetActive(false);
         onLevelAnnouncement.SetActive(false);
     }
 
-    private void Awake() {
+    void Awake() {
         textWriter = GetComponent<TextWriter>();
         textWriter.finishWriting = InvokeHiding;
     }
-
     void Update()
     {
         
