@@ -32,7 +32,6 @@ public class Player : MonoBehaviour {
     void SetLeftHand(Number hand)
     {
         leftHand = hand;
-        _leftHolder.SetBool("Holding", leftHand != null);
         StopSumm();
         // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
@@ -40,7 +39,6 @@ public class Player : MonoBehaviour {
     void SetRightHand(Number hand)
     {
         rightHand = hand;
-        _rightHolder.SetBool("Holding", rightHand != null);
         StopSumm();
         // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
@@ -61,6 +59,9 @@ public class Player : MonoBehaviour {
     Animator _animator;
     Animator _leftHolder;
     Animator _rightHolder;
+    bool _wasInLeft;
+    bool _wasInRight;
+    PlayerMovement _controls;
 
     IEnumerator Summ()
     {
@@ -85,10 +86,15 @@ public class Player : MonoBehaviour {
         summarizing = false;
         switchControls();
     }
+
+    void Awake() {
+        _controls = GetComponent<PlayerMovement>();
+    }
+
     void switchControls()
     {
         isControllable = !isControllable;
-        this.GetComponent<PlayerMovement>().SetControl(isControllable);
+        _controls.SetControl(isControllable);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -206,9 +212,39 @@ public class Player : MonoBehaviour {
                 summarizing = true;
                 //start animation
                 // Invoke(nameof(StartSummarizing), summDelay);
+                
+                _sumAnimator.ResetTrigger("Reset");
                 _summarizingCoro = StartCoroutine(Summ());
                 // TODO: fix summ if numbers have been erased
             }
         }
+        
+        
+        _leftHolder.SetBool("Holding", leftHand);
+        _rightHolder.SetBool("Holding", rightHand);
+        if (_wasInLeft && !leftHand || _wasInRight && !rightHand) {
+            if (_summarizingCoro != null) {
+                StopCoroutine(_summarizingCoro);
+                summarizing = false;
+                
+                
+                _sumAnimator.SetTrigger("Reset");
+                _sumAnimator.ResetTrigger("StartSum");
+                _animator.SetBool("SumInProgress", false);
+                isControllable = true;
+                _controls.SetControl(true);
+            }
+            
+            if (!leftHand && leftHand != null) {
+                SetLeftHand(null);
+            }
+
+            if (!rightHand && rightHand != null) {
+                SetRightHand(null);
+            }
+        }
+
+        _wasInLeft = leftHand;
+        _wasInRight = rightHand;
     }
 }
