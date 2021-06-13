@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         levelSizeHolder.OnChange += OnChangeSize;
     }
 
-    void Start() {
+    void Update() {
         var minWidth = _levelSize.x / 2 + xOffset;
         var minHeight = _levelSize.y / 2 + yOffset;
 
