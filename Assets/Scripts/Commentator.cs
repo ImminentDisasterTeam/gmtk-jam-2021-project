@@ -49,7 +49,6 @@ public class Commentator : MonoBehaviour
     }
 
     void HideWindow() {
-        levelAnnouncement.SetActive(false);
         onLevelAnnouncement.SetActive(false);
     }
 
