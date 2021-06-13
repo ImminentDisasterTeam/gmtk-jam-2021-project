@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoundsSetup : MonoBehaviour {
     [SerializeField] LevelSizeHolder levelSizeHolder;
-    SpriteRenderer _renderer;
+    public SpriteRenderer _renderer;
     const float DefaultSize = 1;
 
     public void SetVisible(bool visible) {

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LevelController : MonoBehaviour
 {
@@ -144,6 +142,7 @@ public class LevelController : MonoBehaviour
             number.Initiate(Random.Range(_minValue, _maxValue));
             number.mapObject = _parentObject.transform;
             number.transform.SetParent(_parentObject.transform);
+            number.bounds = bounds;
             yield return new WaitForSeconds(_numberSpawnRate);
         }
     }
@@ -173,8 +172,11 @@ public class LevelController : MonoBehaviour
                 Debug.Log("FUCK YOU");
                 break;
             }
-            var x = Random.Range(-_levelSize.x / 2, _levelSize.x / 2);
-            var y = Random.Range(-_levelSize.y / 2, _levelSize.y / 2);
+
+            const float BOUNDDELTA = 0.5f;
+            
+            var x = Random.Range(-_levelSize.x / 2 + BOUNDDELTA, _levelSize.x / 2 - BOUNDDELTA);
+            var y = Random.Range(-_levelSize.y / 2 + BOUNDDELTA, _levelSize.y / 2 - BOUNDDELTA);
             position = new Vector3(x, y);
             hit = Physics2D.BoxCast(position, _numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
 
