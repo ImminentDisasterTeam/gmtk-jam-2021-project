@@ -434,9 +434,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5553250097338514905, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8575eb3b31b33494bb655b4b2a4e5c87, type: 3}
     - target: {fileID: 5553250097338514907, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553250098030903289, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553250098432430396, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553250098619725946, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6452844194163531808, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
       propertyPath: m_IsActive
