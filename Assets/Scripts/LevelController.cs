@@ -5,15 +5,15 @@ using UnityEngine.Serialization;
 
 public class LevelController : MonoBehaviour
 {
-    int minValue = 1;
-    int maxValue = 20;
-    int erasersCount = 1;
-    float eraserSpawnRate = 10f;
-    float numberSpawnRate = 0.75f;
-    int goal = 50;
-    Vector2 numberRadius = new Vector2(2f, 2f);
-    Player player;
-    GameObject parentObject;
+    int _minValue = 1;
+    int _maxValue = 20;
+    int _erasersCount = 1;
+    float _eraserSpawnRate = 10f;
+    float _numberSpawnRate = 0.75f;
+    int _goal = 50;
+    readonly Vector2 _numberRadius = new Vector2(2f, 2f);
+    Player _player;
+    GameObject _parentObject;
     [SerializeField] GameObject storagePrefab;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject numberPrefab;
@@ -35,22 +35,31 @@ public class LevelController : MonoBehaviour
         {
             StopCoroutine(_spawnNumbersCoro);
         }
+
+        FinishLevel();
     }
 
     void OnStore(int value) {
-        Debug.Log($"Store {value}");
+        if (value >= _goal) {
+            Debug.Log($"Goal achieved! {value}");
+            FinishLevel();
+        }
+    }
+
+    void FinishLevel() {
+        Destroy(_parentObject);
     }
 
     public void InitializeLevel(int minNumber = 1, int maxNumber = 20, float numberSpawnRate = 0.75f, int goal = 50, int erasersCount = 1, float eraserSpawnInterval = 10f)
     {
-        minValue = minNumber;
-        maxValue = maxNumber;
-        this.erasersCount = erasersCount;
-        this.eraserSpawnRate = eraserSpawnInterval;
-        this.numberSpawnRate = numberSpawnRate;
-        this.goal = goal;
+        _minValue = minNumber;
+        _maxValue = maxNumber;
+        _erasersCount = erasersCount;
+        _eraserSpawnRate = eraserSpawnInterval;
+        _numberSpawnRate = numberSpawnRate;
+        _goal = goal;
 
-        parentObject = new GameObject();
+        _parentObject = new GameObject();
 
         SpawnPlayer();
         SpawnStorage();
@@ -60,15 +69,15 @@ public class LevelController : MonoBehaviour
 
     void SpawnPlayer()
     {
-        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
-        player.onDeath = OnPlayerDeath;
+        _player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        _player.onDeath = OnPlayerDeath;
 
-        player.transform.SetParent(parentObject.transform);
+        _player.transform.SetParent(_parentObject.transform);
     }
     void SpawnStorage()
     {
         
-        var storage = Instantiate(storagePrefab, parentObject.transform);
+        var storage = Instantiate(storagePrefab, _parentObject.transform);
         var storageHeight = storage.GetComponent<SpriteRenderer>().size.y;
         var storageLocation = new Vector2(0, levelSizeHolder.levelSize.y / 2 - storageHeight / 2);
         storage.transform.position = storageLocation;
@@ -85,21 +94,21 @@ public class LevelController : MonoBehaviour
             if (spawnPoint == Vector3.zero)
                 yield return null;
             var number = Instantiate(numberPrefab, spawnPoint, Quaternion.identity).GetComponent<Number>();
-            number.Initiate(Random.Range(minValue, maxValue));
+            number.Initiate(Random.Range(_minValue, _maxValue));
 
-            number.transform.SetParent(parentObject.transform);
-            yield return new WaitForSeconds(numberSpawnRate);
+            number.transform.SetParent(_parentObject.transform);
+            yield return new WaitForSeconds(_numberSpawnRate);
         }
     }
 
     IEnumerator SpawnEraser()
     {
-        for (var i = 0; i < erasersCount; ++i)
+        for (var i = 0; i < _erasersCount; ++i)
         {
             GameObject eraser = Instantiate(eraserPrefab, GetRandomPosition(), Quaternion.identity);
 
-            eraser.transform.SetParent(parentObject.transform);
-            yield return new WaitForSeconds(eraserSpawnRate);
+            eraser.transform.SetParent(_parentObject.transform);
+            yield return new WaitForSeconds(_eraserSpawnRate);
         }
     }
 
@@ -117,7 +126,7 @@ public class LevelController : MonoBehaviour
 
     public void ClearLevel()
     {
-        Destroy(parentObject);
+        Destroy(_parentObject);
     }
 
     Vector2 GetRandomPosition()
@@ -136,7 +145,7 @@ public class LevelController : MonoBehaviour
             var x = Random.Range(-levelSizeHolder.levelSize.x / 2, levelSizeHolder.levelSize.x / 2);
             var y = Random.Range(-levelSizeHolder.levelSize.y / 2, levelSizeHolder.levelSize.y / 2);
             position = new Vector3(x, y);
-            hit = Physics2D.BoxCast(position, numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
+            hit = Physics2D.BoxCast(position, _numberRadius, 0, Vector2.up, 0, spawnCollisionLayer);
 
         } while (hit);
 
