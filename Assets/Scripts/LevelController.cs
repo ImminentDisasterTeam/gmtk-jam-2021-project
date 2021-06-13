@@ -93,7 +93,7 @@ public class LevelController : MonoBehaviour
         _parentObject = new GameObject();
 
         commentator.SetLevel(level);
-
+        
         SpawnPlayer();
         SpawnStorage();
 

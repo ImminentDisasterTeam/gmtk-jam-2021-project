@@ -62,9 +62,9 @@ public class GameController : MonoBehaviour
     }
     void Restart()
     {
-        level -= 1;
         isDead = false;
-        SwitchLevel();
+        levelController.StopAllCoroutines();
+        StartLevel();
     }
     void StartLevel()
     {
