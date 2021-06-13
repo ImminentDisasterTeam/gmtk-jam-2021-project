@@ -24,6 +24,7 @@ public class LevelController : MonoBehaviour
 
     public System.Action SwitchLevel;
     public System.Action Death;
+    public System.Action CloseUI;
 
     Coroutine _spawnErasersCoro;
     Coroutine _spawnNumbersCoro;
@@ -51,6 +52,7 @@ public class LevelController : MonoBehaviour
         if (value >= _goal)
         {
             Debug.Log($"Goal achieved! {value}");
+            commentator.CloseAll();
             FinishLevel();
             SwitchLevel();
         }
@@ -82,7 +84,7 @@ public class LevelController : MonoBehaviour
         _player.SummReplic = commentator.Summ;
 
         _spawnNumbersCoro = StartCoroutine(nameof(SpawnNewNumber));
-        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser));
+        _spawnErasersCoro = StartCoroutine(nameof(SpawnEraser)); ;
     }
 
     void SpawnPlayer()
@@ -128,11 +130,6 @@ public class LevelController : MonoBehaviour
             eraser.transform.SetParent(_parentObject.transform);
             yield return new WaitForSeconds(_eraserSpawnRate);
         }
-    }
-
-    public void ClearLevel()
-    {
-        Destroy(_parentObject);
     }
 
     Vector2 GetRandomPosition()
