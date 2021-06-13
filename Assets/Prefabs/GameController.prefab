@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6683229637649065604
+--- !u!1 &6379519113744838022
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,21 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6683229637649065605}
+  - component: {fileID: 6379519113744838020}
+  - component: {fileID: 6379519113744838021}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: GameController
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6683229637649065605
+--- !u!4 &6379519113744838020
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683229637649065604}
+  m_GameObject: {fileID: 6379519113744838022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -30,3 +31,133 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6379519113744838021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379519113744838022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b406a9cf7fd8f1746b47e728f9bb371c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSettings:
+  - CutsceneOnly: 0
+    CutsceneTexts:
+    - You can press -SPACEBAR- to advance the dialogue
+    - Enemies appeared in the kingdom of numbers, terrible erasers. They destroyed
+      everything in their path.
+    - They immediately killed 1000s, who were the only ones with access to the weapons
+      storage.
+    - Therefore, the ruling 100s remembered the plus, languishing in the dungeon,
+      and called on him to help save the kingdom.
+    MinValue: 1
+    MaxValue: 1
+    InitialNumberCount: 5
+    NumberSpawnRate: 4
+    Goal: 3
+    FixedGoal: 1
+    CanSpawnNumbers: 1
+    ErasersCount: 0
+    EraserSpawnRate: 0
+    CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
+    levelSize: {x: 20, y: 10}
+  - CutsceneOnly: 0
+    CutsceneTexts:
+    - Plus was able to cope with the first task!
+    - 'But this is just the beginning. '
+    - 'Now we need to learn how to create bigger numbers. '
+    MinValue: 1
+    MaxValue: 3
+    InitialNumberCount: 3
+    NumberSpawnRate: 2
+    Goal: 13
+    FixedGoal: 1
+    CanSpawnNumbers: 1
+    ErasersCount: 1
+    EraserSpawnRate: 10
+    CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
+    levelSize: {x: 20, y: 10}
+  - CutsceneOnly: 0
+    CutsceneTexts:
+    - Looks like Plus remembered how to create numbers. But the kingdom is still
+      in danger.
+    - In order to destroy Erasers, at least one 1000 must be brought back to life.
+    - But large numbers are afraid and scatter in different directions, so only small
+      numbers are ready to help.
+    MinValue: 1
+    MaxValue: 9
+    InitialNumberCount: 4
+    NumberSpawnRate: 2
+    Goal: 70
+    FixedGoal: 0
+    CanSpawnNumbers: 1
+    ErasersCount: 2
+    EraserSpawnRate: 0
+    CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
+    levelSize: {x: 20, y: 10}
+  - CutsceneOnly: 0
+    CutsceneTexts:
+    - Look, big numbers, seeing the success of the Plus, are less afraid and ready
+      to help.
+    - Let's JOIN TOGETHER to save our kingdom!
+    MinValue: 1
+    MaxValue: 80
+    InitialNumberCount: 6
+    NumberSpawnRate: 1.5
+    Goal: 500
+    FixedGoal: 0
+    CanSpawnNumbers: 1
+    ErasersCount: 3
+    EraserSpawnRate: 5
+    CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
+    levelSize: {x: 20, y: 10}
+  - CutsceneOnly: 0
+    CutsceneTexts:
+    - It seems that the survivors from the council of acres noted the efforts of
+      the Plus, and now they are also ready to help him!
+    - Now the Plus has the last task to complete.
+    - But this time you will have to be even more careful, because there are more
+      Erasers around.
+    MinValue: 1
+    MaxValue: 100
+    InitialNumberCount: 10
+    NumberSpawnRate: 1
+    Goal: 1000
+    FixedGoal: 1
+    CanSpawnNumbers: 1
+    ErasersCount: 4
+    EraserSpawnRate: 6
+    CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
+    LvlMusic: {fileID: 8300000, guid: d2bef7ebec14b33419ebdcccc5e3094b, type: 3}
+    levelSize: {x: 20, y: 10}
+  - CutsceneOnly: 1
+    CutsceneTexts:
+    - 1000 created, Plus successfully coped with its task, BY JOININIG TOGETHER THE
+      NUMBERS!
+    - And now, our savior can open the vault and get out of there a weapon that will
+      destroy our enemy.
+    - The secret weapon of the kingdom of numbers destroys all foreign bodies from
+      this world, so the erasers were destroyed.
+    MinValue: 1
+    MaxValue: 10
+    InitialNumberCount: 0
+    NumberSpawnRate: 1
+    Goal: 50
+    FixedGoal: 0
+    CanSpawnNumbers: 0
+    ErasersCount: 1
+    EraserSpawnRate: 0
+    CutsceneMusic: {fileID: 8300000, guid: 65405bd26bb38454b85a1b2ec48585e3, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 3f009dccb626143e08ce603d8bcc0a6b, type: 3}
+    levelSize: {x: 20, y: 10}
+  levelController: {fileID: 0}
+  audioController: {fileID: 0}
+  cutsceneController: {fileID: 0}
+  mainMenu: {fileID: 0}
