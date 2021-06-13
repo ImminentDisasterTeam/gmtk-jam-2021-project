@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5373851030057372420, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
+      propertyPath: cutsceneWindow
+      value: 
+      objectReference: {fileID: 2075938633}
     - target: {fileID: 7873493555784568836, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
       propertyPath: deadAnnouncement
       value: 
@@ -212,6 +216,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f26d078abac467988d807b8a285598c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &483366255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5373851030057372420, guid: 1bd86f3c955c0b4409ba09c34bf5bf32, type: 3}
+  m_PrefabInstance: {fileID: 120411761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47d7a0299d434cddaffbede41c666a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &656012053 stripped
@@ -407,6 +422,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5ea9d8ea0c2dd4caa94b5473e226d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2075938633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6452844194163531808, guid: 9a6373b372dff6e4baa27505635d0418, type: 3}
+  m_PrefabInstance: {fileID: 2094311464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2094311464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -773,6 +793,10 @@ PrefabInstance:
       propertyPath: levelController
       value: 
       objectReference: {fileID: 1971505179}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: cutsceneController
+      value: 
+      objectReference: {fileID: 483366255}
     - target: {fileID: 6379519113744838022, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
       propertyPath: m_Name
       value: GameController

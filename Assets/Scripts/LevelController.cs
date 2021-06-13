@@ -23,6 +23,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] Commentator commentator;
 
     public System.Action SwitchLevel;
+    public System.Action Death;
 
     Coroutine _spawnErasersCoro;
     Coroutine _spawnNumbersCoro;
@@ -40,6 +41,7 @@ public class LevelController : MonoBehaviour
             StopCoroutine(_spawnNumbersCoro);
         }
         commentator.AnnounceDeath();
+        Death();
 
         FinishLevel();
     }

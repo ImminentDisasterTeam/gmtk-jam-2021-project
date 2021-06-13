@@ -11,16 +11,22 @@ public class GameController : MonoBehaviour
     private int level = 0;
     private int currentLine = 0;
     private bool isSpeaking;
-
-    private Coroutine textCoro;
+    private bool isDead;
 
     private void Start()
     {
         levelController.SwitchLevel = SwitchLevel;
+        levelController.Death = OnPlayerDeath;
         StartTextCutscene();
+    }
+    private void OnPlayerDeath()
+    {
+        audioController.StopMusic();
+        isDead = true;
     }
     void StartTextCutscene()
     {
+        audioController.PlayClip(gameSettings[level].CutsceneMusic);
         isSpeaking = true;
         cutsceneController.ShowCutsceneWindow();
         currentLine = -1;
@@ -40,7 +46,16 @@ public class GameController : MonoBehaviour
     void Skip()
     {
         if (!cutsceneController.FastWrite())
-            NextLine();
+            if (isDead)
+                Restart();
+            else
+                NextLine();
+    }
+    void Restart()
+    {
+        level -= 1;
+        isDead = false;
+        SwitchLevel();
     }
     void StartLevel()
     {
@@ -50,14 +65,16 @@ public class GameController : MonoBehaviour
 
     void SwitchLevel()
     {
-        levelController.StopAllCoroutines();
         level += 1;
+        levelController.StopAllCoroutines();
         StartLevel();
     }
 
     private void Update()
     {
         if (isSpeaking && Input.GetButtonDown("Skip"))
+            Skip();
+        if (isDead && Input.GetButtonDown("Skip"))
             Skip();
     }
 }
