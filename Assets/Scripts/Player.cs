@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
+    [SerializeField] GameObject deathPrefab;
     public bool isControllable { get; private set; }
     public Action onDeath;
     Number leftHand;
     Number rightHand;
     bool summarizing;
-    float summDelay = 2f;
-    float summPause = 1f;
+    float summDelay = 1f;
+    // float summPause = 1f;
     float width = 1f;
     [SerializeField] Collider2D collider2;
     [SerializeField] GameObject numberObject;
     [SerializeField] float maxSpeed;
     float speed;
+    public Action<int> SummReplic;
+    public Transform mapObject;
     public float GetSpeed() { return speed; }
 
     public void StopSumm()
@@ -27,20 +29,28 @@ public class Player : MonoBehaviour
         }
         summarizing = false;
     }
+    public void AllowMonement()
+    {
+        isControllable = true;
+        this.GetComponent<PlayerMovement>().SetControl(isControllable);
+    }
     void SetLeftHand(Number hand)
     {
         leftHand = hand;
         StopSumm();
+        // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
     }
     void SetRightHand(Number hand)
     {
         rightHand = hand;
         StopSumm();
+        // _sumAnimator.SetTrigger("Reset");
         SetSpeed();
     }
 
     Coroutine _summarizingCoro;
+    Animator _sumAnimator;
 
     private void SetSpeed()
     {
@@ -50,21 +60,46 @@ public class Player : MonoBehaviour
         GetComponent<PlayerMovement>().SetSpeed(speed);
     }
 
+    public bool finishedSum;
+    Animator _animator;
+    Animator _leftHolder;
+    Animator _rightHolder;
+    bool _wasInLeft;
+    bool _wasInRight;
+    PlayerMovement _controls;
+
     IEnumerator Summ()
     {
+        _sumAnimator.SetTrigger("StartPreparation");
         yield return new WaitForSeconds(summDelay);
         switchControls();
-        yield return new WaitForSeconds(summPause);
+        // yield return new WaitForSeconds(summPause);
+        _animator.SetBool("SumInProgress", true);
+        _sumAnimator.SetTrigger("StartSum");
+        yield return new WaitUntil(() => finishedSum);
+        finishedSum = false;
+        _animator.SetBool("SumInProgress", false);
+
         Number.Summ(leftHand, rightHand);
+        SummReplic(leftHand.GetValue());
+
         SetHandPosition(leftHand, -1);
-        rightHand = null;
+
+        SetLeftHand(leftHand);
+        SetRightHand(null);
+
         summarizing = false;
         switchControls();
     }
+
+    void Awake() {
+        _controls = GetComponent<PlayerMovement>();
+    }
+
     void switchControls()
     {
         isControllable = !isControllable;
-        this.GetComponent<PlayerMovement>().SetControl(isControllable);
+        _controls.SetControl(isControllable);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -72,6 +107,8 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             onDeath();
+            var deathAnimation = Instantiate(deathPrefab, transform.position, Quaternion.identity);
+            deathAnimation.transform.parent = mapObject;
             Destroy(gameObject);
         }
     }
@@ -157,6 +194,10 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
+        _sumAnimator = transform.GetChild(0).GetComponent<Animator>();
+        _leftHolder = transform.GetChild(1).GetComponent<Animator>();
+        _rightHolder = transform.GetChild(2).GetComponent<Animator>();
         SetSpeed();
         switchControls();
     }
@@ -177,9 +218,39 @@ public class Player : MonoBehaviour
                 summarizing = true;
                 //start animation
                 // Invoke(nameof(StartSummarizing), summDelay);
+                
+                _sumAnimator.ResetTrigger("Reset");
                 _summarizingCoro = StartCoroutine(Summ());
                 // TODO: fix summ if numbers have been erased
             }
         }
+        
+        
+        _leftHolder.SetBool("Holding", leftHand);
+        _rightHolder.SetBool("Holding", rightHand);
+        if (_wasInLeft && !leftHand || _wasInRight && !rightHand) {
+            if (_summarizingCoro != null) {
+                StopCoroutine(_summarizingCoro);
+                summarizing = false;
+                
+                
+                _sumAnimator.SetTrigger("Reset");
+                _sumAnimator.ResetTrigger("StartSum");
+                _animator.SetBool("SumInProgress", false);
+                isControllable = true;
+                _controls.SetControl(true);
+            }
+            
+            if (!leftHand && leftHand != null) {
+                SetLeftHand(null);
+            }
+
+            if (!rightHand && rightHand != null) {
+                SetRightHand(null);
+            }
+        }
+
+        _wasInLeft = leftHand;
+        _wasInRight = rightHand;
     }
 }

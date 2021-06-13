@@ -30,6 +30,7 @@ public class Digit : MonoBehaviour
             if(grandparent !=null && grandparent.CompareTag("Player"))
             {
                 grandparent.GetComponent<Player>().StopSumm();
+                grandparent.GetComponent<Player>().AllowMonement();
             }
 
         }

@@ -10,8 +10,12 @@ public class Number : MonoBehaviour
     
     [SerializeField] GameObject digitPrefab;
     [SerializeField] float digitWidth = 0.5f;
+    [SerializeField] GameObject destructionPrefab;
 
     public Action<GameObject> onDestroy;
+    public Transform mapObject;
+
+    public BoundsSetup bounds;
 
     public int GetValue()
     {
@@ -21,6 +25,8 @@ public class Number : MonoBehaviour
     private void Destroy()
     {
         // onDestroy(gameObject);
+        var destructionAnimation = Instantiate(destructionPrefab, transform.position, Quaternion.identity);
+        destructionAnimation.transform.parent = mapObject;
         Destroy(gameObject);
     }
 
@@ -69,4 +75,14 @@ public class Number : MonoBehaviour
     public Vector2 GetBordersX() {
         return new Vector2 (transform.position.x - GetWidth(), transform.position.x);
     }
+    //
+    // void Start() {
+    //     _bounds = 
+    // }
+    //
+    // public void Update() {
+    //     if (transform.parent == mapObject) {
+    //         
+    //     }
+    // }
 }

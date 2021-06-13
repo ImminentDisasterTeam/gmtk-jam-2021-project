@@ -9,18 +9,24 @@ public class CameraController : MonoBehaviour
     [SerializeField] float xOffset = 1;
     [SerializeField] float yOffset = 1;
     [SerializeField] LevelSizeHolder levelSizeHolder;
+    Vector2 _levelSize;
 
-    void Start()
+    void Awake()
     {
         _camera = GetComponent<Camera>();
+        levelSizeHolder.OnChange += OnChangeSize;
     }
 
-    // Update is called once per frame
     void Update() {
-        var minWidth = levelSizeHolder.levelSize.x / 2 + xOffset;
-        var minHeight = levelSizeHolder.levelSize.y / 2 + yOffset;
+        var minWidth = _levelSize.x / 2 + xOffset;
+        var minHeight = _levelSize.y / 2 + yOffset;
 
         var minWidthInHeight = minWidth / _camera.aspect;
         _camera.orthographicSize = Math.Max(minWidthInHeight + xOffset, minHeight + yOffset);
+    }
+
+    // Update is called once per frame
+    void OnChangeSize(Vector2 levelSize) {
+        _levelSize = levelSize;
     }
 }
