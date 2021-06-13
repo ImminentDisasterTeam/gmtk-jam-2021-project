@@ -8,7 +8,17 @@ class TextWriter : MonoBehaviour {
     [SerializeField] float pauseTime;
     Coroutine _coro;
 
+    string textToWrite;
+
     public Action<Char> writeLetter;
+    public Action finishWriting;
+
+    public void FastFinish() {
+        if (_coro != null) {
+            StopCoroutine(_coro);
+        }
+        textField.text = textToWrite;
+    }
 
     public void Clear() {
         if (_coro != null) {
@@ -18,6 +28,7 @@ class TextWriter : MonoBehaviour {
     }
 
     public void WriteText(string textToWrite, float? timeToWait = null) {
+        this.textToWrite = textToWrite;
         if (_coro != null) {
             StopCoroutine(_coro);
         }
@@ -33,5 +44,6 @@ class TextWriter : MonoBehaviour {
             writeLetter(textToWrite[i-1]);
             yield return new WaitForSeconds(timeToWait);
         }
+        finishWriting();
     }
 }

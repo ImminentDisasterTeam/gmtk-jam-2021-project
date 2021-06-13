@@ -9,31 +9,54 @@ public class Commentator : MonoBehaviour
     [SerializeField] GameObject levelAnnouncement;
     [SerializeField] GameObject onLevelAnnouncement;
     [SerializeField] GameObject deadAnnouncement;
+    [SerializeField] float timeToHide = 2f;
+
     
-    public void AnnounceLevel(string text) {
+    int level;
+
+    public void SetLevel(int level) {
+        this.level = level;
+    } 
+    public void AnnounceLevel() {
         levelAnnouncement.SetActive(true);
         textWriter.textField = levelAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText(text);
+        textWriter.WriteText("Level " + level + " goal - die");
+    }
+    public void Summ(int sum)
+    {
+        AnnounceOnLevel("You get " + sum);
     }
 
-    public void AnnounceOnLevel(string text) {
+    public void EnemyAppear(int index)
+    {
+        AnnounceOnLevel(index + " enemy appeared!");
+    }
+
+    void AnnounceOnLevel(string text) {
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
-    public void AnnounceDeath(string text) {
+    void AnnounceDeath(string text) {
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
-
-    void Start()
-    {
-        textWriter = GetComponent<TextWriter>();
+    void InvokeHiding() {
+        Invoke("HideWindow", timeToHide);
     }
 
+    void HideWindow() {
+        levelAnnouncement.SetActive(false);
+        onLevelAnnouncement.SetActive(false);
+    }
+
+    void Awake() {
+        textWriter = GetComponent<TextWriter>();
+        textWriter.finishWriting = InvokeHiding;
+    }
     void Update()
     {
         

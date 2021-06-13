@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6379519113744838022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6379519113744838020}
+  - component: {fileID: 6379519113744838021}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6379519113744838020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379519113744838022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6379519113744838021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379519113744838022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b406a9cf7fd8f1746b47e728f9bb371c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSettings:
+  - CutsceneTexts: []
+    MinValue: 1
+    MaxValue: 10
+    NumberSpawnRate: 1
+    Goal: 10
+    ErasersCount: 1
+    EraserSpawnRate: 0
+    CutsceneMusic: {fileID: 8300000, guid: 31a54a36f30fa4989b20ead074f59ee4, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 7eb74069c619a44f6917cc6bad343316, type: 3}
+  - CutsceneTexts: []
+    MinValue: 1
+    MaxValue: 10
+    NumberSpawnRate: 1
+    Goal: 50
+    ErasersCount: 1
+    EraserSpawnRate: 0
+    CutsceneMusic: {fileID: 8300000, guid: 3dfa59ef89aef42ecb9d3e50b69c1fbc, type: 3}
+    LvlMusic: {fileID: 8300000, guid: 545bcf5cb8415443988e50a0b347caf6, type: 3}
+  levelController: {fileID: 0}
+  audioController: {fileID: 0}
