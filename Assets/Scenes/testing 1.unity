@@ -1580,6 +1580,30 @@ PrefabInstance:
       propertyPath: cutsceneController
       value: 
       objectReference: {fileID: 483366255}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[0]
+      value: You can press -SPACEBAR- to advance the dialogue.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[1]
+      value: Enemies appeared in the kingdom of numbers. Terrible erasers! They destroyed
+        everything in their path.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[2]
+      value: They immediately killed all 1000s - the only ones with access to the
+        ancient weapons storage.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[0].CutsceneTexts.Array.data[3]
+      value: Therefore the ruling 100s remembered the plus languishing in the dungeon
+        and called on him to help save the kingdom.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379519113744838021, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
+      propertyPath: gameSettings.Array.data[3].CutsceneTexts.Array.data[0]
+      value: Look! Big numbers, seeing the success of the Plus, are less afraid and
+        ready to help.
+      objectReference: {fileID: 0}
     - target: {fileID: 6379519113744838022, guid: 84b733fec3b2b4042a37d241ad0dabb8, type: 3}
       propertyPath: m_Name
       value: GameController
