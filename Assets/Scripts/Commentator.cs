@@ -11,6 +11,7 @@ public class Commentator : MonoBehaviour
     [SerializeField] GameObject deadAnnouncement;
     [SerializeField] float timeToHide = 2f;
 
+    Coroutine _coro;
     
     int level;
 
@@ -46,27 +47,27 @@ public class Commentator : MonoBehaviour
     {
         if (level == 1) {
             if (sum == 2)
-                AnnounceOnLevel("You got 2! You can sum numbers by getting them in both hands. Now you need number 3!");
+                AnnounceOnLevel("You got 2! Now you need number 3!");
             else if (sum == 3) {
-                AnnounceOnLevel("There is a storage that no one else can enter but you. Put the collected number there so that it is definitely protected from the enemy.");
+                AnnounceOnLevel("There is a storage that you can put a number into buy dropping it nearby. Put the collected number there so that it is definitely protected from the enemy.");
             }
         }
     }
 
     public void EnemyAppear(int index)
     {
-        if (level == 2)
-            AnnounceOnLevel("Oh no, it's him! One of the Erasers is nearby! Be careful, Plus create 13 and don't die. New numbers will sometimes come to you on the field to help, but they may be erased.");
-        else if (level == 3) 
-            AnnounceOnLevel("Beware, there are more and more enemies!");
+        if (level == 2 && index == 0)
+            AnnounceOnLevel("Oh no! It's him! One of the Erasers is nearby! Be careful! Create a number 13 and don't die. New numbers will sometimes come to you on the field to help.");
+        else if (level == 3 && index == 1) 
+            AnnounceOnLevel("Beware! There are more and more enemies!");
     }
 
     private void InitialSpeech() {
         if (level == 1) {
-            AnnounceOnLevel("Use Q and E to take numbers.");
+            AnnounceOnLevel("Use Q and E to take numbers. You can sum numbers by getting them in both hands.");
         }
         else if (level == 2) {
-            AnnounceOnLevel("Now your task is to create number 13. The goal of the level is written above the field. Good luck, Plus!");
+            AnnounceOnLevel("Now your task is to create number 13. The goal of the level is written above the field. Good luck!");
         }
         else if (level == 3) {
             AnnounceOnLevel("The Eraser walks nearby from the start! For now, create a number greater than 70.");
@@ -78,7 +79,7 @@ public class Commentator : MonoBehaviour
         levelAnnouncement.SetActive(false);
         deadAnnouncement.SetActive(true);
         textWriter.textField = deadAnnouncement.GetComponentInChildren<Text>();
-        textWriter.WriteText("The world is plunging into darkness. Erasers are rapidly absorbing numbers, soon we will all die ... Ah, if only there was an opportunity to go back and save, Plus!");
+        textWriter.WriteText("The world is plunging into darkness. Erasers are rapidly absorbing numbers. Soon we will all die... If only there was an opportunity to go back and save Plus!");
     }
 
     public void CloseAll() {
@@ -87,16 +88,20 @@ public class Commentator : MonoBehaviour
         deadAnnouncement.SetActive(false);
     }
     void AnnounceOnLevel(string text) {
+        if (_coro != null) {
+            StopCoroutine(_coro);
+        }
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
     void InvokeHiding() {
-        Invoke("HideWindow", timeToHide);
+        _coro = StartCoroutine("HideWindow");
     }
 
-    void HideWindow() {
+    IEnumerator HideWindow() {
+        yield return new WaitForSeconds(timeToHide);
         onLevelAnnouncement.SetActive(false);
     }
 

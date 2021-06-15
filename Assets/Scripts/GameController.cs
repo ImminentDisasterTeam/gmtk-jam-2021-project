@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour
         {
             mainMenu.SetActive(false);
             StartGame();
+            return;
         }
 
         if (isSpeaking && Input.GetButtonDown("Skip"))
