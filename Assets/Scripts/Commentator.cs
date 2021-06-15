@@ -11,6 +11,7 @@ public class Commentator : MonoBehaviour
     [SerializeField] GameObject deadAnnouncement;
     [SerializeField] float timeToHide = 2f;
 
+    Coroutine _coro;
     
     int level;
 
@@ -87,16 +88,20 @@ public class Commentator : MonoBehaviour
         deadAnnouncement.SetActive(false);
     }
     void AnnounceOnLevel(string text) {
+        if (_coro != null) {
+            StopCoroutine(_coro);
+        }
         onLevelAnnouncement.SetActive(true);
         textWriter.textField = onLevelAnnouncement.GetComponentInChildren<Text>();
         textWriter.WriteText(text);
     }
 
     void InvokeHiding() {
-        Invoke("HideWindow", timeToHide);
+        _coro = StartCoroutine("HideWindow");
     }
 
-    void HideWindow() {
+    IEnumerator HideWindow() {
+        yield return new WaitForSeconds(timeToHide);
         onLevelAnnouncement.SetActive(false);
     }
 
